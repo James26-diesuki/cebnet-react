@@ -1,0 +1,44 @@
+panduit
+Panduit
+Network infrastructure & physical layer solutions
+Gold
+
+manageengine
+ManageEngine
+IT management software for enterprise environments
+Bronze
+
+fortinet
+Fortinet
+Next-generation firewalls & unified threat management
+Gold
+
+trendmicro
+Trend Micro
+Endpoint security & advanced threat protection
+Silver
+
+extreme_networks
+Extreme Networks
+Enterprise-grade wireless LAN & switching solutions
+Silver
+
+apc
+APC
+Power management & data center infrastructure
+Gold
+
+checkpoint
+Check Point
+Cyber security — network, cloud & mobile security
+Bronze
+
+vertiv
+Vertiv
+Critical digital infrastructure & continuity solutions
+Silver
+
+cisco
+Cisco
+Networking, collaboration & cybersecurity platforms
+Gold
