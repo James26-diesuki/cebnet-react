@@ -3189,3 +3189,19 @@ p  { color: var(--clr-muted); }
   .svc-cards-grid { grid-template-columns: 1fr; }
   .svc-card-image  { height: 140px; }
 }
+
+/* ── Contact email hyperlink ── */
+.contact-email-link {
+  display: inline-block;
+  margin-top: 6px;
+  color: var(--clr-accent);
+  font-weight: 600;
+  font-size: .95rem;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(232,37,26,.3);
+  transition: border-color .2s, color .2s;
+}
+.contact-email-link:hover {
+  color: #ff4d3d;
+  border-bottom-color: rgba(232,37,26,.8);
+}

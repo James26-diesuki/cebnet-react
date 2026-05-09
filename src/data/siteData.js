@@ -12,6 +12,7 @@ export const SITE = {
   phone1Label:  'SMART',
   phone2Label:  'Globe',
   address:      '2nd Floor, Philippine Veterans Bank Building, Osmeña Boulevard, Cebu City 6000 Philippines',
+  businessHours: 'Mon–Fri: 8:00 AM – 6:00 PM',
 }
 
 export const STATS = {

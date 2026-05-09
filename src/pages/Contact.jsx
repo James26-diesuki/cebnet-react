@@ -70,13 +70,9 @@ export default function Contact() {
                   <span>We typically respond within one business day.</span>
                   <a
                     href={`mailto:${SITE.email}?subject=Inquiry%20from%20Website`}
-                    className="btn btn-primary contact-email-btn"
+                    className="contact-email-link"
                   >
-                    Email Us
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <line x1="5" y1="12" x2="19" y2="12"/>
-                      <polyline points="12,5 19,12 12,19"/>
-                    </svg>
+                    {SITE.email}
                   </a>
                 </div>
               </div>
@@ -90,9 +86,8 @@ export default function Contact() {
                 </div>
                 <div>
                   <strong>Business Hours</strong>
-                  <span>
-                    Mon–Fri: 8:00 AM – 6:00 PM<br/>
-                    Sat: 9:00 AM – 1:00 PM
+                  <span style={{whiteSpace:'pre-line'}}>
+                    {SITE.businessHours || 'Mon–Fri: 8:00 AM – 6:00 PM'}
                   </span>
                 </div>
               </div>
