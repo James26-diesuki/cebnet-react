@@ -92,7 +92,7 @@ export default function Services() {
               </div>
               <h3 className="cat-card-title">Network &amp; Security</h3>
               <ul className="cat-list">
-                {['Routing and Switching','Network Security','Telephony Solutions','Wireless Connectivity','Other Network Devices'].map(item => (
+                {['Routing and Switching','Network Security','Wireless Connectivity'].map(item => (
                   <li key={item}><span className="cat-list-dot"></span>{item}</li>
                 ))}
               </ul>
@@ -109,7 +109,7 @@ export default function Services() {
               </div>
               <h3 className="cat-card-title">Computing</h3>
               <ul className="cat-list">
-                {['Servers','Storage','Desktops','Laptops / Notebooks','Thin Clients','Computing Accessories'].map(item => (
+                {['Servers','Storage','Desktops','Laptops','Thin Clients','Computing Accessories'].map(item => (
                   <li key={item}><span className="cat-list-dot"></span>{item}</li>
                 ))}
               </ul>
@@ -126,7 +126,7 @@ export default function Services() {
               </div>
               <h3 className="cat-card-title">Auxiliary Systems</h3>
               <ul className="cat-list">
-                {['Access Control','CCTV and IP Surveillance'].map(item => (
+                {['Access Control','CCTV and IP Surveillance','Telephony Solutions'].map(item => (
                   <li key={item}><span className="cat-list-dot"></span>{item}</li>
                 ))}
               </ul>
@@ -183,7 +183,7 @@ export default function Services() {
                     Managed Services
                   </div>
                   <ul className="cat-list">
-                    {['Cisco Meraki MSP','Firewall as a Service','Infrastructure as a Service','Disaster Recovery as a Service'].map(item => (
+                    {['Cisco Meraki MSSP','Firewall as a Service','Infrastructure as a Service','Disaster Recovery as a Service'].map(item => (
                       <li key={item}><span className="cat-list-dot"></span>{item}</li>
                     ))}
                   </ul>

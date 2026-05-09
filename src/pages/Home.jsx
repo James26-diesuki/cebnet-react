@@ -275,25 +275,28 @@ export default function Home() {
             <h2 className="reveal reveal-delay-1">Technology that works: seamless, secure, smart.</h2>
             <p className="reveal reveal-delay-2">From ground-up network builds to ongoing managed security, we deliver IT that performs when it matters most.</p>
           </div>
-        </div>
-        {SERVICES.map((svc, i) => (
-          <div key={i} className={`svc-row reveal${i % 2 !== 0 ? ' svc-row--reverse' : ''}`}>
-            <div className="svc-row-text">
-              <div className="svc-row-icon"><ServiceIcon type={svc.icon} /></div>
-              <h3>{svc.title}</h3>
-              <p>{svc.desc}</p>
-              <Link to="/services" className="btn btn-outline svc-row-link">
-                Learn More
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
-              </Link>
-            </div>
-            <div className={`svc-row-image svc-row-image--${i + 1}`}>
-              <div className="svc-row-image-inner">
-                <div className="svc-row-icon-bg"><ServiceIcon type={svc.icon} /></div>
+          <div className="svc-cards-grid">
+            {SERVICES.map((svc, i) => (
+              <div key={i} className={`svc-card reveal reveal-delay-${(i % 3) + 1}`}>
+                <div className={`svc-card-image svc-row-image--${i + 1}`}>
+                  <div className="svc-card-image-label">
+                    <div className="svc-card-image-icon"><ServiceIcon type={svc.icon} /></div>
+                    <span>{svc.title}</span>
+                  </div>
+                </div>
+                <div className="svc-card-body">
+                  <div className="svc-card-icon"><ServiceIcon type={svc.icon} /></div>
+                  <h3>{svc.title}</h3>
+                  <p>{svc.desc}</p>
+                  <Link to="/services" className="btn btn-outline svc-row-link">
+                    Learn More
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+                  </Link>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
-        ))}
+        </div>
       </section>
 
       {/* PARTNERS */}
