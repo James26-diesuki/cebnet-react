@@ -102,34 +102,39 @@ function VideoLightbox({ open, onClose }) {
 // ── Flip card with touch support ──
 function FlipCard({ svc, i }) {
   const [flipped, setFlipped] = useState(false)
-  const isTouch = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches
+
+  const handleClick = () => setFlipped(f => !f)
 
   return (
     <div
-      className={`svc-flip-card reveal reveal-delay-${(i % 3) + 1}${flipped ? ' flipped' : ''}`}
-      onClick={() => isTouch && setFlipped(f => !f)}
+      className={`svc-flip-card reveal reveal-delay-${(i % 3) + 1}`}
+      onClick={handleClick}
     >
-      <div className="svc-flip-inner">
-        <div className="svc-flip-front">
-          <div className="svc-flip-bg" style={{backgroundImage: `url('${svc.image || ''}')`}} />
-          <div className="svc-flip-front-overlay" />
-          <div className="svc-flip-front-content">
-            <h3>{svc.title}</h3>
-            <div className="svc-flip-hint">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="14" height="14"><path d="M7 10l5 5 5-5"/></svg>
-              {isTouch ? 'Tap to learn more' : 'Hover to learn more'}
-            </div>
+      {/* FRONT — shown when not flipped */}
+      <div className={`svc-flip-face svc-flip-front${flipped ? ' svc-flip-face--hidden' : ''}`}>
+        <div className="svc-flip-bg" style={{backgroundImage: `url('${svc.image || ''}')`}} />
+        <div className="svc-flip-front-overlay" />
+        <div className="svc-flip-front-content">
+          <h3>{svc.title}</h3>
+          <div className="svc-flip-hint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="14" height="14"><path d="M7 10l5 5 5-5"/></svg>
+            Tap to learn more
           </div>
         </div>
-        <div className="svc-flip-back">
-          <div className="svc-flip-back-icon"><ServiceIcon type={svc.icon} /></div>
-          <h3>{svc.title}</h3>
-          <p>{svc.desc}</p>
-          <Link to="/services" className="btn btn-primary svc-flip-btn">
-            Learn More
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
-          </Link>
-        </div>
+      </div>
+      {/* BACK — shown when flipped */}
+      <div className={`svc-flip-face svc-flip-back${flipped ? '' : ' svc-flip-face--hidden'}`}>
+        <div className="svc-flip-back-icon"><ServiceIcon type={svc.icon} /></div>
+        <h3>{svc.title}</h3>
+        <p>{svc.desc}</p>
+        <Link
+          to="/services"
+          className="btn btn-primary svc-flip-btn"
+          onClick={e => e.stopPropagation()}
+        >
+          Learn More
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+        </Link>
       </div>
     </div>
   )
