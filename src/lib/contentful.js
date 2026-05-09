@@ -72,6 +72,7 @@ export async function fetchServices() {
       title: item.fields.title || '',
       desc:  item.fields.description || '',
       icon:  item.fields.icon || 'network',
+      image: resolveAsset(item.fields.image?.sys?.id, data.includes) || '',
     }))
   } catch (e) {
     console.error('fetchServices error:', e)

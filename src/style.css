@@ -3205,3 +3205,174 @@ p  { color: var(--clr-muted); }
   color: #ff4d3d;
   border-bottom-color: rgba(232,37,26,.8);
 }
+
+/* =========================================
+   SERVICE FLIP CARDS (Home — What We Offer)
+   ========================================= */
+.svc-flip-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.svc-flip-card {
+  height: 380px;
+  perspective: 1200px;
+  cursor: pointer;
+}
+
+.svc-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform .65s cubic-bezier(.4,0,.2,1);
+  border-radius: 16px;
+}
+
+.svc-flip-card:hover .svc-flip-inner {
+  transform: rotateY(180deg);
+}
+
+/* FRONT */
+.svc-flip-front,
+.svc-flip-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.svc-flip-front {
+  background: var(--clr-surface);
+}
+
+.svc-flip-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform .65s ease;
+}
+
+.svc-flip-card:hover .svc-flip-bg {
+  transform: scale(1.05);
+}
+
+.svc-flip-front-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,.85) 0%,
+    rgba(0,0,0,.3) 50%,
+    rgba(0,0,0,.15) 100%
+  );
+}
+
+.svc-flip-front-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 28px 24px;
+}
+
+.svc-flip-front-content h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.svc-flip-hint {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: .75rem;
+  color: rgba(255,255,255,.55);
+  font-weight: 500;
+}
+
+/* BACK */
+.svc-flip-back {
+  background: var(--clr-accent);
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 32px 28px;
+  gap: 12px;
+}
+
+.svc-flip-back-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(255,255,255,.15);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  margin-bottom: 4px;
+  flex-shrink: 0;
+}
+
+.svc-flip-back-icon svg {
+  width: 24px;
+  height: 24px;
+  color: #fff;
+}
+
+.svc-flip-back h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.3;
+}
+
+.svc-flip-back p {
+  font-size: .85rem;
+  color: rgba(255,255,255,.85);
+  line-height: 1.65;
+  flex: 1;
+}
+
+.svc-flip-btn {
+  background: #fff !important;
+  color: var(--clr-accent) !important;
+  border-color: #fff !important;
+  font-size: .8rem !important;
+  padding: 9px 18px !important;
+  margin-top: 4px;
+}
+
+.svc-flip-btn:hover {
+  background: rgba(255,255,255,.9) !important;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .svc-flip-grid { grid-template-columns: repeat(2, 1fr); }
+  .svc-flip-card  { height: 340px; }
+}
+
+@media (max-width: 640px) {
+  .svc-flip-grid { grid-template-columns: 1fr; }
+  .svc-flip-card  { height: 300px; }
+}
+
+/* Touch devices — click to flip instead of hover */
+@media (hover: none) {
+  .svc-flip-card.flipped .svc-flip-inner {
+    transform: rotateY(180deg);
+  }
+  .svc-flip-card:hover .svc-flip-inner {
+    transform: none;
+  }
+}

@@ -98,6 +98,43 @@ function VideoLightbox({ open, onClose }) {
   )
 }
 
+
+// ── Flip card with touch support ──
+function FlipCard({ svc, i }) {
+  const [flipped, setFlipped] = useState(false)
+  const isTouch = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches
+
+  return (
+    <div
+      className={`svc-flip-card reveal reveal-delay-${(i % 3) + 1}${flipped ? ' flipped' : ''}`}
+      onClick={() => isTouch && setFlipped(f => !f)}
+    >
+      <div className="svc-flip-inner">
+        <div className="svc-flip-front">
+          <div className="svc-flip-bg" style={{backgroundImage: `url('${svc.image || ''}')`}} />
+          <div className="svc-flip-front-overlay" />
+          <div className="svc-flip-front-content">
+            <h3>{svc.title}</h3>
+            <div className="svc-flip-hint">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="14" height="14"><path d="M7 10l5 5 5-5"/></svg>
+              {isTouch ? 'Tap to learn more' : 'Hover to learn more'}
+            </div>
+          </div>
+        </div>
+        <div className="svc-flip-back">
+          <div className="svc-flip-back-icon"><ServiceIcon type={svc.icon} /></div>
+          <h3>{svc.title}</h3>
+          <p>{svc.desc}</p>
+          <Link to="/services" className="btn btn-primary svc-flip-btn">
+            Learn More
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+          </Link>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function Home() {
   useScrollReveal()
   useCounterAnimation()
@@ -275,25 +312,9 @@ export default function Home() {
             <h2 className="reveal reveal-delay-1">Technology that works: seamless, secure, smart.</h2>
             <p className="reveal reveal-delay-2">From ground-up network builds to ongoing managed security, we deliver IT that performs when it matters most.</p>
           </div>
-          <div className="svc-cards-grid">
+          <div className="svc-flip-grid">
             {SERVICES.map((svc, i) => (
-              <div key={i} className={`svc-card reveal reveal-delay-${(i % 3) + 1}`}>
-                <div className={`svc-card-image svc-row-image--${i + 1}`}>
-                  <div className="svc-card-image-label">
-                    <div className="svc-card-image-icon"><ServiceIcon type={svc.icon} /></div>
-                    <span>{svc.title}</span>
-                  </div>
-                </div>
-                <div className="svc-card-body">
-                  <div className="svc-card-icon"><ServiceIcon type={svc.icon} /></div>
-                  <h3>{svc.title}</h3>
-                  <p>{svc.desc}</p>
-                  <Link to="/services" className="btn btn-outline svc-row-link">
-                    Learn More
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
-                  </Link>
-                </div>
-              </div>
+              <FlipCard key={i} svc={svc} i={i} />
             ))}
           </div>
         </div>
