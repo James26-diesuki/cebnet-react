@@ -206,6 +206,61 @@ export default function Services() {
         </div>
       </section>
 
+
+      {/* SECURITY CHECKUP */}
+      <section className="section security-checkup-section">
+        <div className="container">
+          <div className="sc-wrapper reveal">
+            <div className="sc-left">
+              <div className="sc-badge">Professional Services</div>
+              <div className="sc-free-badge">FREE!</div>
+              <h2 className="sc-title">Security Checkup</h2>
+              <p className="sc-subtitle">A no-cost professional service to help you understand the current state of your network security — no strings attached.</p>
+              <Link to="/contact" className="btn btn-primary sc-cta">
+                Claim Your Free Checkup
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+              </Link>
+            </div>
+            <div className="sc-right">
+              <div className="sc-card">
+                <div className="sc-card-header">
+                  <div className="sc-card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                  </div>
+                  <div>
+                    <h3>Real-Time Traffic Audit</h3>
+                    <span className="sc-card-tag">Included in Security Checkup</span>
+                  </div>
+                </div>
+                <div className="sc-card-divider" />
+                <div className="sc-card-body">
+                  <div className="sc-what-label">What is it:</div>
+                  <p>A passive internal review of your live network traffic to observe what is happening inside your environment in real time.</p>
+                </div>
+                <div className="sc-card-features">
+                  <div className="sc-feature">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="16" height="16"><polyline points="20,6 9,17 4,12"/></svg>
+                    <span>No disruption to your network or operations</span>
+                  </div>
+                  <div className="sc-feature">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="16" height="16"><polyline points="20,6 9,17 4,12"/></svg>
+                    <span>Passive monitoring — read-only, non-intrusive</span>
+                  </div>
+                  <div className="sc-feature">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="16" height="16"><polyline points="20,6 9,17 4,12"/></svg>
+                    <span>Delivered by certified security consultants</span>
+                  </div>
+                  <div className="sc-feature">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="16" height="16"><polyline points="20,6 9,17 4,12"/></svg>
+                    <span>Summary report of findings provided after</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* WHY CEBNET */}
       <section className="section section-dark">
         <div className="container">
