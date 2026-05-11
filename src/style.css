@@ -3530,3 +3530,31 @@ p  { color: var(--clr-muted); }
   .sc-title { font-size: 1.8rem; }
   .sc-free-badge { font-size: 2.4rem; }
 }
+
+/* =========================================
+   CATALOG GROUP LABELS (Products / Services)
+   ========================================= */
+.catalog-group-label {
+  margin-bottom: 20px;
+}
+
+.catalog-group-label-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--clr-accent);
+  background: var(--clr-red-faint);
+  border: 1px solid rgba(232,37,26,.2);
+  padding: 7px 16px;
+  border-radius: 999px;
+}
+
+.catalog-group-label-inner svg {
+  color: var(--clr-accent);
+  flex-shrink: 0;
+}
