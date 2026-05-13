@@ -160,7 +160,7 @@ export default function Services() {
               </div>
               <h3 className="cat-card-title">VAPT</h3>
               <ul className="cat-list">
-                {['Network Vulnerability Assessment','Web Application Penetration Testing','Internal & External Pen Testing','Social Engineering Assessment','Security Risk Reporting & Remediation'].map(item => (
+                {['Web App Security Testing','Network Security Testing','Mobile App Security Testing','Cloud Security Testing','Wireless Security Testing'].map(item => (
                   <li key={item}><span className="cat-list-dot"></span>{item}</li>
                 ))}
               </ul>
