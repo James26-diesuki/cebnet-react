@@ -3558,3 +3558,25 @@ p  { color: var(--clr-muted); }
   color: var(--clr-accent);
   flex-shrink: 0;
 }
+
+/* ── Contact email list ── */
+.contact-email-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.contact-email-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.contact-email-label {
+  font-size: .72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--clr-muted);
+}

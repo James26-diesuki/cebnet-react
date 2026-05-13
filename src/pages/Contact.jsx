@@ -68,12 +68,26 @@ export default function Contact() {
                 <div>
                   <strong>Send us an Email</strong>
                   <span>We typically respond within one business day.</span>
-                  <a
-                    href={`mailto:${SITE.email}?subject=Inquiry%20from%20Website`}
-                    className="contact-email-link"
-                  >
-                    {SITE.email}
-                  </a>
+                  <div className="contact-email-list">
+                    <div className="contact-email-item">
+                      <span className="contact-email-label">General Inquiries</span>
+                      <a href="mailto:info@cebnet.com.ph?subject=General%20Inquiry" className="contact-email-link">
+                        info@cebnet.com.ph
+                      </a>
+                    </div>
+                    <div className="contact-email-item">
+                      <span className="contact-email-label">Sales Inquiries</span>
+                      <a href="mailto:cnti.sales@cebnet.com.ph?subject=Sales%20Inquiry" className="contact-email-link">
+                        cnti.sales@cebnet.com.ph
+                      </a>
+                    </div>
+                    <div className="contact-email-item">
+                      <span className="contact-email-label">Technical Inquiries</span>
+                      <a href="mailto:cnti.tech@cebnet.com.ph?subject=Technical%20Inquiry" className="contact-email-link">
+                        cnti.tech@cebnet.com.ph
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
 

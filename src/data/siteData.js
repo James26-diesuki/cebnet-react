@@ -7,6 +7,8 @@ export const SITE = {
   name:         'CebNet Technologies, Inc.',
   tagline:      'Focus-Oriented Systems Integration & Network Security',
   email:        'info@cebnet.com.ph',
+  emailSales:   'cnti.sales@cebnet.com.ph',
+  emailTech:    'cnti.tech@cebnet.com.ph',
   phone1:       '+63 912 342 5566',
   phone2:       '+63 917 123 4567',
   phone1Label:  'SMART',
