@@ -71,20 +71,20 @@ export default function Contact() {
                   <div className="contact-email-list">
                     <div className="contact-email-item">
                       <span className="contact-email-label">General Inquiries</span>
-                      <a href="mailto:info@cebnet.com.ph?subject=General%20Inquiry" className="contact-email-link">
-                        info@cebnet.com.ph
+                      <a href={`mailto:${SITE.email}?subject=General%20Inquiry`} className="contact-email-link">
+                        {SITE.email}
                       </a>
                     </div>
                     <div className="contact-email-item">
                       <span className="contact-email-label">Sales Inquiries</span>
-                      <a href="mailto:cnti.sales@cebnet.com.ph?subject=Sales%20Inquiry" className="contact-email-link">
-                        cnti.sales@cebnet.com.ph
+                      <a href={`mailto:${SITE.emailSales}?subject=Sales%20Inquiry`} className="contact-email-link">
+                        {SITE.emailSales}
                       </a>
                     </div>
                     <div className="contact-email-item">
                       <span className="contact-email-label">Technical Inquiries</span>
-                      <a href="mailto:cnti.tech@cebnet.com.ph?subject=Technical%20Inquiry" className="contact-email-link">
-                        cnti.tech@cebnet.com.ph
+                      <a href={`mailto:${SITE.emailTech}?subject=Technical%20Inquiry`} className="contact-email-link">
+                        {SITE.emailTech}
                       </a>
                     </div>
                   </div>

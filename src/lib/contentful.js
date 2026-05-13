@@ -27,7 +27,20 @@ export async function fetchSiteInfo() {
   try {
     const data = await fetchEntries('siteInfo')
     if (!data.items?.length) return null
-    return data.items[0].fields
+    const f = data.items[0].fields
+    return {
+      siteName:      f.siteName      || '',
+      tagline:       f.tagline       || '',
+      email:         f.email         || '',
+      emailSales:    f.emailSales    || '',
+      emailTech:     f.emailTech     || '',
+      phone1:        f.phone1        || '',
+      phone1Label:   f.phone1Label   || '',
+      phone2:        f.phone2        || '',
+      phone2Label:   f.phone2Label   || '',
+      address:       f.address       || '',
+      businessHours: f.businessHours || '',
+    }
   } catch (e) {
     console.error('fetchSiteInfo error:', e)
     return null
