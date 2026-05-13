@@ -167,39 +167,26 @@ export default function Services() {
               <div className="cat-card-bar"><div className="cat-card-bar-fill"></div></div>
             </div>
 
-            {/* 06 — IT Services (wide) */}
-            <div className="cat-card cat-card--wide" data-index="06">
+            {/* 06 — MSSP */}
+            <div className="cat-card" data-index="06">
               <div className="cat-card-top">
                 <div className="cat-card-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="11" r="3"/></svg>
                 </div>
                 <div className="cat-card-index">06</div>
               </div>
-              <h3 className="cat-card-title">IT Services</h3>
-              <div className="cat-services-split">
-                <div className="cat-service-group">
-                  <div className="cat-service-label">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="13" height="13"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
-                    Managed Services
-                  </div>
-                  <ul className="cat-list">
-                    {['Cisco Meraki MSSP','Firewall as a Service','Infrastructure as a Service','Disaster Recovery as a Service'].map(item => (
-                      <li key={item}><span className="cat-list-dot"></span>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="cat-service-group">
-                  <div className="cat-service-label">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="13" height="13"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    Professional Services
-                  </div>
-                  <ul className="cat-list">
-                    {['Network Infrastructure','Assessment','Implementation Services'].map(item => (
-                      <li key={item}><span className="cat-list-dot"></span>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+              <h3 className="cat-card-title">Managed Security Service Provider</h3>
+              <ul className="cat-list">
+                {[
+                  '24x7 threat monitoring & response',
+                  'Threat hunting and root cause analysis',
+                  'Provide recommendation based on vulnerability findings.',
+                  'Annual Vulnerability and Penetration Testing (One-Time)',
+                  'Monthly reporting of critical events.',
+                ].map(item => (
+                  <li key={item}><span className="cat-list-dot"></span>{item}</li>
+                ))}
+              </ul>
               <div className="cat-card-bar"><div className="cat-card-bar-fill"></div></div>
             </div>
           </div>
