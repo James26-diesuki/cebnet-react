@@ -81,8 +81,15 @@ export default function Services() {
             </div>
           </div>
 
+          {/* ── PRODUCTS LABEL ── */}
+          <div className="catalog-group-label reveal">
+            <div className="catalog-group-label-inner">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="15" height="15"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+              Products
+            </div>
+          </div>
+
           <div className="catalog-grid-v2">
-            {/* 01 — Network & Security */}
             <div className="cat-card" data-index="01">
               <div className="cat-card-top">
                 <div className="cat-card-icon">
@@ -99,7 +106,6 @@ export default function Services() {
               <div className="cat-card-bar"><div className="cat-card-bar-fill"></div></div>
             </div>
 
-            {/* 02 — Computing */}
             <div className="cat-card" data-index="02">
               <div className="cat-card-top">
                 <div className="cat-card-icon">
@@ -116,7 +122,6 @@ export default function Services() {
               <div className="cat-card-bar"><div className="cat-card-bar-fill"></div></div>
             </div>
 
-            {/* 03 — Auxiliary */}
             <div className="cat-card" data-index="03">
               <div className="cat-card-top">
                 <div className="cat-card-icon">
@@ -133,7 +138,6 @@ export default function Services() {
               <div className="cat-card-bar"><div className="cat-card-bar-fill"></div></div>
             </div>
 
-            {/* 04 — Software */}
             <div className="cat-card" data-index="04">
               <div className="cat-card-top">
                 <div className="cat-card-icon">
@@ -149,8 +153,17 @@ export default function Services() {
               </ul>
               <div className="cat-card-bar"><div className="cat-card-bar-fill"></div></div>
             </div>
+          </div>
 
-            {/* 05 — VAPT */}
+          {/* ── SERVICES LABEL ── */}
+          <div className="catalog-group-label reveal" style={{marginTop:'48px'}}>
+            <div className="catalog-group-label-inner">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="15" height="15"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              Services
+            </div>
+          </div>
+
+          <div className="catalog-grid-v2">
             <div className="cat-card" data-index="05">
               <div className="cat-card-top">
                 <div className="cat-card-icon">
@@ -167,7 +180,6 @@ export default function Services() {
               <div className="cat-card-bar"><div className="cat-card-bar-fill"></div></div>
             </div>
 
-            {/* 06 — MSSP */}
             <div className="cat-card" data-index="06">
               <div className="cat-card-top">
                 <div className="cat-card-icon">
@@ -192,7 +204,6 @@ export default function Services() {
           </div>
         </div>
       </section>
-
 
       {/* SECURITY CHECKUP */}
       <section className="section security-checkup-section">
