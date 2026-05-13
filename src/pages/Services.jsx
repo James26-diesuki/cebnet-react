@@ -214,10 +214,10 @@ export default function Services() {
               <div className="sc-free-badge">FREE!</div>
               <h2 className="sc-title">Security Checkup</h2>
               <p className="sc-subtitle">A no-cost professional service to help you understand the current state of your network security — no strings attached.</p>
-              <Link to="/contact" className="btn btn-primary sc-cta">
+              <a href="mailto:cnti.tech@cebnet.com.ph?subject=Free%20Security%20Checkup%20Request" className="btn btn-primary sc-cta">
                 Claim Your Free Checkup
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
-              </Link>
+              </a>
             </div>
             <div className="sc-right">
               <div className="sc-card">
