@@ -3576,7 +3576,6 @@ p  { color: var(--clr-muted); }
 .contact-email-label {
   font-size: .72rem;
   font-weight: 700;
-  text-transform: uppercase;
   letter-spacing: .08em;
   color: var(--clr-muted);
 }
