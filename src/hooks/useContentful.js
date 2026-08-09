@@ -7,6 +7,8 @@ import {
   fetchJobs,
   fetchTeamMembers,
   fetchGallery,
+  fetchAnnouncements,
+  fetchOffers,
 } from '../lib/contentful'
 import {
   SITE as SITE_FALLBACK,
@@ -60,3 +62,5 @@ export function useServices()     { return useFetch(fetchServices,    SERVICES_F
 export function useJobs()         { return useFetch(fetchJobs,        JOBS_FALLBACK)     }
 export function useTeamMembers()  { return useFetch(fetchTeamMembers, TEAM_FALLBACK)     }
 export function useGallery()      { return useFetch(fetchGallery,     [])               }
+export function useAnnouncements(){ return useFetch(fetchAnnouncements, [])              }
+export function useOffers()       { return useFetch(fetchOffers,        [])              }

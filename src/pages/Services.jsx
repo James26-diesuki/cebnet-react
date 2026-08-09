@@ -206,7 +206,7 @@ export default function Services() {
       </section>
 
       {/* SECURITY CHECKUP */}
-      <section className="section security-checkup-section">
+      <section id="security-checkup" className="section security-checkup-section">
         <div className="container">
           <div className="sc-wrapper reveal">
             <div className="sc-left">

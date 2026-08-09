@@ -4,7 +4,17 @@ import { useScrollReveal, useCounterAnimation } from '../hooks/useScrollReveal'
 import { ServiceIcon } from '../components/Icons'
 import HeroCanvas from '../components/HeroCanvas'
 import { TESTIMONIALS, STATS } from '../data/siteData'
-import { usePartners, useClients, useServices } from '../hooks/useContentful'
+import { usePartners, useClients, useServices, useAnnouncements, useOffers } from '../hooks/useContentful'
+
+// Shown in the "New Offers" panel whenever the client hasn't published any
+// offers in Contentful yet — keeps the section from ever looking empty.
+const DEFAULT_OFFER = {
+  title: 'Free Security Checkup',
+  desc: 'A no-cost professional service to help you understand the current state of your network security — no strings attached.',
+  badge: 'Free · Professional Services',
+  link: '/services#security-checkup',
+  linkLabel: 'See Details',
+}
 
 // ── Typing animation badge ──
 function HeroBadge() {
@@ -148,6 +158,10 @@ export default function Home() {
   const { data: SERVICES } = useServices()
   const { data: CLIENTS  } = useClients()
   const { data: PARTNERS } = usePartners()
+  const { data: ANNOUNCEMENTS } = useAnnouncements()
+  const { data: OFFERS   } = useOffers()
+
+  const featuredOffer = OFFERS.length > 0 ? OFFERS[0] : DEFAULT_OFFER
 
   // Duplicate for infinite marquees
   const clientsAll  = [...CLIENTS,  ...CLIENTS]
@@ -223,6 +237,86 @@ export default function Home() {
                 <div className="stat-bar"><div className="stat-bar-fill" style={{width:'70%'}}></div></div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ANNOUNCEMENTS & NEW OFFERS — extends the hero */}
+      <section className="section updates-section">
+        <div className="container">
+          <div className="updates-grid">
+
+            {/* Announcements */}
+            <div className="updates-card reveal">
+              <div className="updates-card-header">
+                <div className="updates-card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                  </svg>
+                </div>
+                <div>
+                  <span className="updates-card-label">Announcements</span>
+                  <h3>Company Updates</h3>
+                </div>
+              </div>
+              <div className="updates-card-divider"></div>
+              <div className="updates-card-body">
+                {ANNOUNCEMENTS.length === 0 ? (
+                  <div className="updates-placeholder">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+                      <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12.5"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                    </svg>
+                    <p>No current announcements. Check back soon for company news and updates.</p>
+                  </div>
+                ) : (
+                  <ul className="updates-list">
+                    {ANNOUNCEMENTS.map((a, i) => (
+                      <li key={i} className="updates-list-item">
+                        {a.date && <span className="updates-list-date">{a.date}</span>}
+                        <strong>{a.title}</strong>
+                        {a.message && <p>{a.message}</p>}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
+
+            {/* New Offers */}
+            <div className="updates-card updates-card--offer reveal reveal-delay-1">
+              <div className="updates-card-header">
+                <div className="updates-card-icon updates-card-icon--offer">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                    <path d="M20.59 13.41 11 3.83A2 2 0 0 0 9.59 3H4a1 1 0 0 0-1 1v5.59a2 2 0 0 0 .59 1.41l9.58 9.59a2 2 0 0 0 2.83 0l4.59-4.59a2 2 0 0 0 0-2.83z"/>
+                    <circle cx="7.5" cy="7.5" r="1.5"/>
+                  </svg>
+                </div>
+                <div>
+                  <span className="updates-card-label">New Offers</span>
+                  <h3>Current Promotions</h3>
+                </div>
+              </div>
+              <div className="updates-card-divider"></div>
+              <div className="updates-card-body">
+                {featuredOffer ? (
+                  <div className="updates-offer">
+                    {featuredOffer.badge && <span className="updates-offer-badge">{featuredOffer.badge}</span>}
+                    <strong>{featuredOffer.title}</strong>
+                    <p>{featuredOffer.desc}</p>
+                    <Link to={featuredOffer.link} className="btn btn-outline updates-offer-cta">
+                      {featuredOffer.linkLabel}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+                    </Link>
+                  </div>
+                ) : (
+                  <div className="updates-placeholder">
+                    <p>No current offers. Check back soon for new promos.</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
           </div>
         </div>
       </section>

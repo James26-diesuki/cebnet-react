@@ -126,6 +126,48 @@ export async function fetchGallery() {
   }
 }
 
+// ── ANNOUNCEMENTS ──
+// Client-managed in Contentful (content type: "announcement").
+// Leave no entries published to show the "no announcements" placeholder on the site.
+export async function fetchAnnouncements() {
+  try {
+    const data = await fetchEntries('announcement')
+    return data.items
+      .map(item => ({
+        title:   item.fields.title   || '',
+        message: item.fields.message || '',
+        date:    item.fields.date    || '',
+        order:   item.fields.order   ?? 99,
+      }))
+      .sort((a, b) => a.order - b.order)
+  } catch (e) {
+    console.error('fetchAnnouncements error:', e)
+    return []
+  }
+}
+
+// ── OFFERS ──
+// Client-managed in Contentful (content type: "offer").
+// "link" can point anywhere (e.g. /services or an external URL); defaults to /services when left blank.
+export async function fetchOffers() {
+  try {
+    const data = await fetchEntries('offer')
+    return data.items
+      .map(item => ({
+        title:     item.fields.title       || '',
+        desc:      item.fields.description || '',
+        badge:     item.fields.badge       || '',
+        link:      item.fields.link        || '/services',
+        linkLabel: item.fields.linkLabel   || 'See Details',
+        order:     item.fields.order       ?? 99,
+      }))
+      .sort((a, b) => a.order - b.order)
+  } catch (e) {
+    console.error('fetchOffers error:', e)
+    return []
+  }
+}
+
 // ── TEAM MEMBERS ──
 export async function fetchTeamMembers() {
   try {

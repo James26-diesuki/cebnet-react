@@ -490,6 +490,141 @@ p  { color: var(--clr-muted); }
 .stat-float span { font-size: .82rem; font-weight: 600; color: var(--clr-white); }
  
 /* =========================================
+   ANNOUNCEMENTS & NEW OFFERS — extends hero
+   ========================================= */
+.updates-section {
+  padding: 0 0 100px;
+  position: relative;
+  margin-top: -1px;
+}
+.updates-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.updates-card {
+  background: var(--clr-surface);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
+}
+.updates-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--clr-accent);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+.updates-card--offer::before {
+  background: linear-gradient(90deg, var(--clr-accent), var(--clr-accent3));
+}
+.updates-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.updates-card-icon {
+  width: 48px; height: 48px; flex-shrink: 0;
+  background: var(--clr-red-faint);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--clr-accent);
+}
+.updates-card-icon svg { width: 22px; height: 22px; }
+.updates-card-icon--offer { background: rgba(255,107,96,.12); color: var(--clr-accent3); }
+.updates-card-label {
+  display: block;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--clr-accent);
+  margin-bottom: 4px;
+}
+.updates-card-header h3 { font-size: 1.15rem; color: var(--clr-white); }
+.updates-card-divider {
+  height: 1px;
+  background: rgba(255,255,255,.06);
+  margin-bottom: 20px;
+}
+
+/* Placeholder state (no announcements / no offers) */
+.updates-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  color: var(--clr-muted);
+  padding: 8px 0 4px;
+}
+.updates-placeholder svg { color: var(--clr-muted); opacity: .5; }
+.updates-placeholder p { font-size: .9rem; line-height: 1.7; margin: 0; }
+
+/* Announcements list */
+.updates-list { display: flex; flex-direction: column; gap: 18px; }
+.updates-list-item strong {
+  display: block;
+  color: var(--clr-white);
+  font-size: .95rem;
+  margin-bottom: 4px;
+}
+.updates-list-item p {
+  color: var(--clr-muted);
+  font-size: .88rem;
+  line-height: 1.6;
+  margin: 0;
+}
+.updates-list-date {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 600;
+  color: var(--clr-accent);
+  margin-bottom: 4px;
+}
+.updates-list-item + .updates-list-item {
+  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+
+/* Offer panel */
+.updates-offer-badge {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--clr-accent3);
+  background: rgba(255,107,96,.1);
+  border: 1px solid rgba(255,107,96,.25);
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+.updates-offer strong {
+  display: block;
+  color: var(--clr-white);
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+}
+.updates-offer p {
+  color: var(--clr-muted);
+  font-size: .9rem;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+.updates-offer-cta { padding: 11px 22px; font-size: .82rem; }
+
+@media (max-width: 900px) {
+  .updates-grid { grid-template-columns: 1fr; }
+  .updates-section { padding-bottom: 80px; }
+}
+
+/* =========================================
    OUR CLIENTS — PREMIUM SHOWCASE
    ========================================= */
 /* =========================================
