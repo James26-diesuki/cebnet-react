@@ -556,14 +556,20 @@ p  { color: var(--clr-muted); }
 /* Placeholder state (no announcements / no offers) */
 .updates-placeholder {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
   gap: 12px;
   color: var(--clr-muted);
-  padding: 8px 0 4px;
+  padding: 4px 0;
 }
-.updates-placeholder svg { color: var(--clr-muted); opacity: .5; }
-.updates-placeholder p { font-size: .9rem; line-height: 1.7; margin: 0; }
+.updates-placeholder svg {
+  width: 20px; height: 20px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--clr-muted);
+  opacity: .5;
+}
+.updates-placeholder p { font-size: .88rem; line-height: 1.6; margin: 0; }
 
 /* Announcements list */
 .updates-list { display: flex; flex-direction: column; gap: 18px; }
