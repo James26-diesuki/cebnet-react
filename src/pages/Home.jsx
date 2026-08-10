@@ -109,6 +109,46 @@ function VideoLightbox({ open, onClose }) {
 }
 
 
+// ── Image Lightbox (click-to-zoom for announcement images) ──
+function ImageLightbox({ image, onClose }) {
+  useEffect(() => {
+    const onKey = e => { if (e.key === 'Escape') onClose() }
+    document.addEventListener('keydown', onKey)
+    document.body.style.overflow = image ? 'hidden' : ''
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [image, onClose])
+
+  if (!image) return null
+
+  return (
+    <div
+      className="video-lightbox active"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Image preview"
+      onClick={e => { if (e.target === e.currentTarget) onClose() }}
+    >
+      <div className="video-lightbox-inner" style={{ aspectRatio: 'auto', background: 'transparent', boxShadow: 'none', maxWidth: '90vw' }}>
+        <button className="video-lightbox-close" onClick={onClose} aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+          Close
+        </button>
+        <img
+          src={image.src}
+          alt={image.title}
+          style={{ maxWidth: '90vw', maxHeight: '80vh', objectFit: 'contain', borderRadius: '12px', display: 'block' }}
+        />
+      </div>
+    </div>
+  )
+}
+
+
 // ── Flip card with touch support ──
 function FlipCard({ svc, i }) {
   const [flipped, setFlipped] = useState(false)
@@ -154,6 +194,7 @@ export default function Home() {
   useScrollReveal()
   useCounterAnimation()
   const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [announcementImage, setAnnouncementImage] = useState(null)
 
   const { data: SERVICES } = useServices()
   const { data: CLIENTS  } = useClients()
@@ -274,8 +315,21 @@ export default function Home() {
                     {ANNOUNCEMENTS.map((a, i) => (
                       <li key={i} className="updates-list-item">
                         {a.images?.[0] && (
-                          <div className="updates-list-image">
+                          <div
+                            className="updates-list-image"
+                            onClick={() => setAnnouncementImage({ src: a.images[0], title: a.title })}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={e => e.key === 'Enter' && setAnnouncementImage({ src: a.images[0], title: a.title })}
+                            aria-label={`View larger image for ${a.title}`}
+                          >
                             <img src={a.images[0]} alt={a.title} />
+                            <span className="updates-list-image-zoom">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                                <line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
+                              </svg>
+                            </span>
                           </div>
                         )}
                         {a.date && <span className="updates-list-date">{a.date}</span>}
@@ -406,6 +460,7 @@ export default function Home() {
           </div>
         </div>
         <VideoLightbox open={lightboxOpen} onClose={() => setLightboxOpen(false)} />
+        <ImageLightbox image={announcementImage} onClose={() => setAnnouncementImage(null)} />
       </section>
 
       {/* SERVICES */}

@@ -574,15 +574,41 @@ p  { color: var(--clr-muted); }
 /* Announcements list */
 .updates-list { display: flex; flex-direction: column; gap: 18px; }
 .updates-list-image {
+  position: relative;
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 12px;
   background: rgba(255,255,255,.04);
+  cursor: pointer;
 }
 .updates-list-image img {
   width: 100%;
-  height: auto;
+  height: 160px;
+  object-fit: cover;
   display: block;
+  transition: transform .4s ease;
+}
+.updates-list-image:hover img { transform: scale(1.04); }
+.updates-list-image-zoom {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10,10,14,0);
+  opacity: 0;
+  transition: opacity .25s ease, background .25s ease;
+}
+.updates-list-image:hover .updates-list-image-zoom {
+  opacity: 1;
+  background: rgba(10,10,14,.35);
+}
+.updates-list-image-zoom svg {
+  width: 34px; height: 34px;
+  color: #fff;
+  padding: 8px;
+  background: rgba(232,37,26,.9);
+  border-radius: 50%;
 }
 .updates-list-item strong {
   display: block;
