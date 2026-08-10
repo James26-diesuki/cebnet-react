@@ -25,12 +25,25 @@ const PAGE_TITLES = {
 const SITE_NAME = 'CebNet Technologies, Inc.'
 
 function ScrollToTop() {
-  const { pathname } = useLocation()
+  const { pathname, hash } = useLocation()
   useEffect(() => {
-    window.scrollTo(0, 0)
+    if (hash) {
+      // Wait a tick so the destination page has rendered before we scroll to it.
+      const id = hash.slice(1)
+      requestAnimationFrame(() => {
+        const el = document.getElementById(id)
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        } else {
+          window.scrollTo(0, 0)
+        }
+      })
+    } else {
+      window.scrollTo(0, 0)
+    }
     const label = PAGE_TITLES[pathname]
     document.title = label ? `${label} | ${SITE_NAME}` : SITE_NAME
-  }, [pathname])
+  }, [pathname, hash])
   return null
 }
 

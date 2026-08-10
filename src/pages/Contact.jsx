@@ -20,7 +20,7 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="section contact-section">
+      <section id="contact-details" className="section contact-section">
         <div className="container">
           <div className="contact-two-col">
 
