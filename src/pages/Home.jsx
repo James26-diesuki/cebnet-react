@@ -273,6 +273,11 @@ export default function Home() {
                   <ul className="updates-list">
                     {ANNOUNCEMENTS.map((a, i) => (
                       <li key={i} className="updates-list-item">
+                        {a.images?.[0] && (
+                          <div className="updates-list-image">
+                            <img src={a.images[0]} alt={a.title} />
+                          </div>
+                        )}
                         {a.date && <span className="updates-list-date">{a.date}</span>}
                         <strong>{a.title}</strong>
                         {a.message && <p>{a.message}</p>}
@@ -455,9 +460,13 @@ export default function Home() {
                 <span className="quote-mark">"</span>
                 <p>{t.quote}</p>
                 <div className="testimonial-author">
-                  <div className="author-avatar">{t.company.charAt(0).toUpperCase()}</div>
+                  <div className="author-avatar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                      <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                  </div>
                   <div className="author-info">
-                    <strong>{t.company}</strong>
                     <span>{t.role}</span>
                   </div>
                 </div>

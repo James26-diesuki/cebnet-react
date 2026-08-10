@@ -22,6 +22,14 @@ function resolveAsset(assetId, includes) {
   return asset ? 'https:' + asset.fields.file.url : null
 }
 
+// ── Resolve a "many files" media field to an array of URLs ──
+function resolveAssets(assetRefs, includes) {
+  if (!Array.isArray(assetRefs) || !includes?.Asset) return []
+  return assetRefs
+    .map(ref => resolveAsset(ref?.sys?.id, includes))
+    .filter(Boolean)
+}
+
 // ── SITE INFO ──
 export async function fetchSiteInfo() {
   try {
@@ -128,6 +136,7 @@ export async function fetchGallery() {
 
 // ── ANNOUNCEMENTS ──
 // Client-managed in Contentful (content type: "announcement").
+// "images" is a "Media, many files" field — optional, can hold one or more images.
 // Leave no entries published to show the "no announcements" placeholder on the site.
 export async function fetchAnnouncements() {
   try {
@@ -137,6 +146,7 @@ export async function fetchAnnouncements() {
         title:   item.fields.title   || '',
         message: item.fields.message || '',
         date:    item.fields.date    || '',
+        images:  resolveAssets(item.fields.images, data.includes),
         order:   item.fields.order   ?? 99,
       }))
       .sort((a, b) => a.order - b.order)
