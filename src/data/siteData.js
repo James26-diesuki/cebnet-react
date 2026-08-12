@@ -6,7 +6,7 @@
 export const SITE = {
   name:         'CebNet Technologies, Inc.',
   tagline:      'Focus-Oriented Systems Integration & Network Security',
-  email:        'cnti.sales@cebnet.com.ph',
+  email:        'info@cebnet.com.ph',
   emailSales:   'cnti.sales@cebnet.com.ph',
   emailTech:    'cnti.tech@cebnet.com.ph',
   phone1:       '+63 912 342 5566',
@@ -109,15 +109,20 @@ export const TESTIMONIALS = [
 // logos go in /public/assets/img/partners/
 // ─────────────────────────────────────────────
 export const PARTNERS = [
-  { name: 'Cisco',            logo: '/assets/img/partners/cisco.png',           desc: 'Networking, collaboration & cybersecurity platforms',     level: 'Gold'   },
-  { name: 'Fortinet',         logo: '/assets/img/partners/fortinet.png',        desc: 'Next-generation firewalls & unified threat management',   level: 'Gold'   },
-  { name: 'Trend Micro',      logo: '/assets/img/partners/trendmicro.png',      desc: 'Endpoint security & advanced threat protection',          level: 'Gold'   },
-  { name: 'Check Point',      logo: '/assets/img/partners/checkpoint.png',      desc: 'Cyber security — network, cloud & mobile security',      level: 'Gold'   },
-  { name: 'Panduit',          logo: '/assets/img/partners/panduit.png',         desc: 'Network infrastructure & physical layer solutions',       level: 'Silver' },
-  { name: 'ManageEngine',     logo: '/assets/img/partners/manageengine.png',    desc: 'IT management software for enterprise environments',      level: 'Silver' },
-  { name: 'Extreme Networks', logo: '/assets/img/partners/extremenetworks.png', desc: 'Enterprise-grade wireless LAN & switching solutions',     level: 'Silver' },
-  { name: 'Vertiv',           logo: '/assets/img/partners/vertiv.png',          desc: 'Critical digital infrastructure & continuity solutions', level: 'Silver' },
-  { name: 'APC',              logo: '/assets/img/partners/apc.png',             desc: 'Power management & data center infrastructure',          level: 'Bronze' },
+  { name: 'Cisco',            logo: '/assets/img/partners/cisco.png',           desc: 'Networking, collaboration & cybersecurity platforms',        levels: ['Select Partner'],                     order: 1  },
+  { name: 'Extreme Networks', logo: '/assets/img/partners/extremenetworks.png', desc: 'Enterprise-grade wireless LAN & switching solutions',        levels: ['Authorized Partner'],                 order: 2  },
+  { name: 'Aruba',            logo: '/assets/img/partners/aruba.png',           desc: 'Enterprise wireless, switching & network access solutions',  levels: [],                                      order: 3  },
+  { name: 'Fortinet',         logo: '/assets/img/partners/fortinet.png',        desc: 'Next-generation firewalls & unified threat management',      levels: ['Advocate Partner'],                    order: 4  },
+  { name: 'Sophos',           logo: '/assets/img/partners/sophos.png',          desc: 'Endpoint protection, MDR & managed security services',       levels: ['Silver Partner', 'MSP Partner'],       order: 5  },
+  { name: 'Check Point',      logo: '/assets/img/partners/checkpoint.png',      desc: 'Cyber security — network, cloud & mobile security',          levels: ['Advanced Partner'],                    order: 6  },
+  { name: 'Segura',           logo: '/assets/img/partners/segura.png',          desc: 'Privileged access & credential management',                  levels: [],                                      order: 7  },
+  { name: 'Safous',           logo: '/assets/img/partners/safous.png',          desc: 'Zero trust network & application access',                    levels: [],                                      order: 8  },
+  { name: 'SentinelOne',      logo: '/assets/img/partners/sentinelone.png',     desc: 'AI-powered endpoint detection & response',                   levels: [],                                      order: 9  },
+  { name: 'CrowdStrike',      logo: '/assets/img/partners/crowdstrike.png',     desc: 'Cloud-native endpoint & threat intelligence platform',       levels: [],                                      order: 10 },
+  { name: 'NinjaOne',         logo: '/assets/img/partners/ninjaone.png',        desc: 'Remote monitoring & unified IT management platform',         levels: ['Authorized Reseller'],                 order: 11 },
+  { name: 'ManageEngine',     logo: '/assets/img/partners/manageengine.png',    desc: 'IT management software for enterprise environments',         levels: [],                                      order: 12 },
+  { name: 'Dell',             logo: '/assets/img/partners/dell.png',            desc: 'Enterprise servers, storage & infrastructure hardware',      levels: [],                                      order: 13 },
+  { name: 'Grandstream',      logo: '/assets/img/partners/grandstream.png',     desc: 'IP telephony & unified communications hardware',             levels: [],                                      order: 14 },
 ]
 
 // ─────────────────────────────────────────────

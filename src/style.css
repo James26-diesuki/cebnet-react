@@ -2606,70 +2606,28 @@ p  { color: var(--clr-muted); }
 }
 .partner-card:hover::before { opacity: 1; }
 
-/* ── Partner level badge ── */
+/* ── Partner level badge(s) — vendor's own title(s), no fixed tier ── */
+.partner-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 2px 0 2px;
+}
 .partner-level-badge {
   display: inline-flex;
   align-items: center;
   gap: 5px;
   font-size: .68rem;
   font-weight: 700;
-  letter-spacing: .07em;
+  letter-spacing: .04em;
   text-transform: uppercase;
   padding: 4px 10px;
   border-radius: 20px;
   line-height: 1;
-}
-.partner-level-badge--gold {
-  background: linear-gradient(135deg, #7a5800, #c9920a);
-  color: #ffe9a0;
-  box-shadow: 0 0 10px rgba(201,146,10,.25);
-}
-.partner-level-badge--silver {
-  background: linear-gradient(135deg, #3a3d46, #6b717f);
-  color: #dde1ea;
-  box-shadow: 0 0 10px rgba(107,113,127,.2);
-}
-.partner-level-badge--bronze {
-  background: linear-gradient(135deg, #5c3110, #a0622a);
-  color: #f5d5b0;
-  box-shadow: 0 0 10px rgba(160,98,42,.2);
-}
-
-/* Badge pinned to top-left of partner card */
-.partner-card .partner-level-badge {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  z-index: 2;
-}
-
-/* Gold card gets a subtle top-border glow */
-.partner-card:has(.partner-level-badge--gold)::before {
-  background: linear-gradient(90deg, #c9920a, transparent);
-  opacity: 1;
-}
-.partner-card:has(.partner-level-badge--silver)::before {
-  background: linear-gradient(90deg, #6b717f, transparent);
-  opacity: 1;
-}
-.partner-card:has(.partner-level-badge--bronze)::before {
-  background: linear-gradient(90deg, #a0622a, transparent);
-  opacity: 1;
-}
-
-/* ── Partner level legend ── */
-.partner-level-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 28px;
-  margin-bottom: 40px;
-}
-.partner-level-legend-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: .82rem;
-  color: var(--clr-muted);
+  white-space: nowrap;
+  background: rgba(232,37,26,.1);
+  border: 1px solid rgba(232,37,26,.28);
+  color: var(--clr-accent);
 }
 
 @media (max-width: 900px) {
@@ -2677,7 +2635,6 @@ p  { color: var(--clr-muted); }
 }
 @media (max-width: 540px) {
   .partners-logo-grid { grid-template-columns: 1fr; }
-  .partner-level-legend { flex-direction: column; gap: 10px; }
 }
 
 /* =========================================

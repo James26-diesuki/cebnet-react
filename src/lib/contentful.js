@@ -59,12 +59,18 @@ export async function fetchSiteInfo() {
 export async function fetchPartners() {
   try {
     const data = await fetchEntries('partner')
-    return data.items.map(item => ({
-      name:  item.fields.name  || '',
-      desc:  item.fields.description || '',
-      level: item.fields.level || '',
-      logo:  resolveAsset(item.fields.logo?.sys?.id, data.includes) || '',
-    }))
+    return data.items
+      .map(item => ({
+        name:   item.fields.name  || '',
+        desc:   item.fields.description || '',
+        // "levels" is a Contentful "Short text, list" field — each vendor's own
+        // partnership title(s), free text (e.g. "Select Partner", "MSP Partner").
+        // A vendor can have zero, one, or several — no fixed tier system.
+        levels: Array.isArray(item.fields.levels) ? item.fields.levels : [],
+        logo:   resolveAsset(item.fields.logo?.sys?.id, data.includes) || '',
+        order:  item.fields.order ?? 99,
+      }))
+      .sort((a, b) => a.order - b.order)
   } catch (e) {
     console.error('fetchPartners error:', e)
     return []
