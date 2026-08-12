@@ -16,10 +16,16 @@ async function fetchEntries(contentType, params = '') {
 }
 
 // ── Resolve asset URL from includes ──
-function resolveAsset(assetId, includes) {
+function resolveAsset(assetId, includes, opts = {}) {
   if (!includes?.Asset) return null
   const asset = includes.Asset.find(a => a.sys.id === assetId)
-  return asset ? 'https:' + asset.fields.file.url : null
+  if (!asset) return null
+  let url = 'https:' + asset.fields.file.url
+  // Ask Contentful's Images API for a right-sized, compressed version instead of
+  // whatever the raw uploaded file happens to be — large unoptimized uploads (a
+  // multi-MB logo, for example) are the most common cause of a slow/failed load.
+  if (opts.width) url += `?w=${opts.width}&fm=webp&q=85`
+  return url
 }
 
 // ── Resolve a "many files" media field to an array of URLs ──
@@ -67,7 +73,7 @@ export async function fetchPartners() {
         // partnership title(s), free text (e.g. "Select Partner", "MSP Partner").
         // A vendor can have zero, one, or several — no fixed tier system.
         levels: Array.isArray(item.fields.levels) ? item.fields.levels : [],
-        logo:   resolveAsset(item.fields.logo?.sys?.id, data.includes) || '',
+        logo:   resolveAsset(item.fields.logo?.sys?.id, data.includes, { width: 500 }) || '',
         order:  item.fields.order ?? 99,
       }))
       .sort((a, b) => a.order - b.order)

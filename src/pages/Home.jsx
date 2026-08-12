@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useScrollReveal, useCounterAnimation } from '../hooks/useScrollReveal'
 import { ServiceIcon } from '../components/Icons'
+import PartnerLogo from '../components/PartnerLogo'
 import HeroCanvas from '../components/HeroCanvas'
 import { TESTIMONIALS, STATS } from '../data/siteData'
 import { usePartners, useServices, useAnnouncements, useOffers } from '../hooks/useContentful'
@@ -592,11 +593,7 @@ export default function Home() {
           <div className="marquee-track">
             {partnersAll.map((p, i) => (
               <div className="partner-logo-card" key={i}>
-                <img
-                  src={p.logo} alt={p.name} title={p.name}
-                  onError={e => { e.currentTarget.style.display='none'; e.currentTarget.nextSibling.style.display='flex' }}
-                />
-                <div className="partner-logo-fallback" style={{display:'none'}}>{p.name}</div>
+                <PartnerLogo src={p.logo} name={p.name} fallbackClassName="partner-logo-fallback" />
               </div>
             ))}
           </div>

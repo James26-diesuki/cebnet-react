@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { usePartners } from '../hooks/useContentful'
+import PartnerLogo from '../components/PartnerLogo'
 
 const CheckIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" width="10" height="10">
@@ -37,12 +38,7 @@ export default function Partners() {
             {sorted.map((p, i) => (
               <div key={i} className={`partner-card reveal reveal-delay-${(i % 3) + 1}`}>
                 <div className="partner-card-logo">
-                  <img
-                    src={p.logo}
-                    alt={p.name}
-                    onError={e => { e.currentTarget.style.display='none'; e.currentTarget.nextSibling.style.display='flex' }}
-                  />
-                  <div className="partner-card-fallback">{p.name}</div>
+                  <PartnerLogo src={p.logo} name={p.name} fallbackClassName="partner-card-fallback" />
                 </div>
                 <div className="partner-card-body">
                   <h3>{p.name}</h3>

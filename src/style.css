@@ -2649,7 +2649,6 @@ p  { color: var(--clr-muted); }
   text-align: center;
   letter-spacing: .05em;
   text-transform: uppercase;
-  display: none;
 }
 
 /* Text area */
