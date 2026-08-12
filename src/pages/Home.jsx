@@ -13,6 +13,7 @@ const DEFAULT_OFFER = {
   title: 'ThreatSentra',
   desc: "CebNet's own cybersecurity brand — Email Security and Endpoint Security, powered by Check Point.",
   badge: 'Now Available',
+  logo: '/assets/img/threatsentra/threatsentra-logo.png',
   link: '/#threatsentra',
   linkLabel: 'See Details',
 }
@@ -154,6 +155,32 @@ function ImageLightbox({ image, onClose }) {
           style={{ maxWidth: '90vw', maxHeight: '80vh', objectFit: 'contain', borderRadius: '12px', display: 'block' }}
         />
       </div>
+    </div>
+  )
+}
+
+
+// ── Small logo badge with retry-on-error (same reasoning as PartnerLogo —
+// one failed CDN hit shouldn't permanently hide it) ──
+function OfferLogo({ src, alt }) {
+  const [attempt, setAttempt] = useState(0)
+  const [hidden,  setHidden]  = useState(false)
+  const retries = useRef(0)
+
+  if (!src || hidden) return null
+
+  const handleError = () => {
+    if (retries.current < 2) {
+      retries.current += 1
+      setTimeout(() => setAttempt(a => a + 1), 400 * retries.current)
+    } else {
+      setHidden(true)
+    }
+  }
+
+  return (
+    <div className="updates-offer-logo-wrap">
+      <img key={attempt} src={src} alt={alt} className="updates-offer-logo" onError={handleError} />
     </div>
   )
 }
@@ -371,7 +398,10 @@ export default function Home() {
                 {featuredOffer ? (
                   <div className="updates-offer">
                     {featuredOffer.badge && <span className="updates-offer-badge">{featuredOffer.badge}</span>}
-                    <strong>{featuredOffer.title}</strong>
+                    <div className="updates-offer-title-row">
+                      <strong>{featuredOffer.title}</strong>
+                      <OfferLogo src={featuredOffer.logo} alt={`${featuredOffer.title} logo`} />
+                    </div>
                     <p>{featuredOffer.desc}</p>
                     <Link to={featuredOffer.link} className="btn btn-outline updates-offer-cta">
                       {featuredOffer.linkLabel}

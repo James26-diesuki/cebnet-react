@@ -165,6 +165,7 @@ export async function fetchOffers() {
         title:     item.fields.title       || '',
         desc:      item.fields.description || '',
         badge:     item.fields.badge       || '',
+        logo:      resolveAsset(item.fields.logo?.sys?.id, data.includes, { width: 200 }) || '',
         link:      item.fields.link        || '/services',
         linkLabel: item.fields.linkLabel   || 'See Details',
         order:     item.fields.order       ?? 99,
