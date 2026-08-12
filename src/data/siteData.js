@@ -19,7 +19,7 @@ export const SITE = {
 
 export const STATS = {
   clients:      { value: 200, suffix: '+' },
-  years:        { value: 7,   suffix: '+' },
+  years:        { value: 8,   suffix: '+' },
   engineers:    { value: 50,  suffix: '+' },
   incidents:    { value: 200, suffix: '+' },
   satisfaction: { value: 99.9, suffix: '%' },
