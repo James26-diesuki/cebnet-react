@@ -125,21 +125,6 @@ export const PARTNERS = [
   { name: 'Grandstream',      logo: '/assets/img/partners/grandstream.png',     desc: 'IP telephony & unified communications hardware',             levels: [],                                      order: 14 },
 ]
 
-// ─────────────────────────────────────────────
-// CLIENTS — logos go in /public/assets/img/clients/
-// ─────────────────────────────────────────────
-export const CLIENTS = [
-  { name: 'ARC Hospital',                      logo: '/assets/img/clients/arc_hospital.jpg' },
-  { name: 'BAI Hotel Cebu',                    logo: '/assets/img/clients/bai.jpg'          },
-  { name: 'RD Pawnshop',                       logo: '/assets/img/clients/RD_pawnshop.png'  },
-  { name: 'Eastern Communication',             logo: '/assets/img/clients/EC.png'           },
-  { name: 'PHCCI',                             logo: '/assets/img/clients/phcci.png'        },
-  { name: 'Bluewaters',                        logo: '/assets/img/clients/bluewaters.png'   },
-  { name: 'Kyocera',                           logo: '/assets/img/clients/kyocera.png'      },
-  { name: 'Mactan Cebu International Airport', logo: '/assets/img/clients/mactan_cebu.png'  },
-  { name: 'Cebu Oversea Builders',             logo: '/assets/img/clients/cebu_builders.png'},
-]
-
 export const JOBS = [
   { title: 'Network Engineer',            dept: 'Engineering', type: 'Full-time', loc: 'Cebu City' },
   { title: 'Cybersecurity Analyst',       dept: 'Security',    type: 'Full-time', loc: 'Cebu City' },

@@ -77,20 +77,6 @@ export async function fetchPartners() {
   }
 }
 
-// ── CLIENTS ──
-export async function fetchClients() {
-  try {
-    const data = await fetchEntries('client')
-    return data.items.map(item => ({
-      name: item.fields.name || '',
-      logo: resolveAsset(item.fields.logo?.sys?.id, data.includes) || '',
-    }))
-  } catch (e) {
-    console.error('fetchClients error:', e)
-    return []
-  }
-}
-
 // ── SERVICES ──
 export async function fetchServices() {
   try {

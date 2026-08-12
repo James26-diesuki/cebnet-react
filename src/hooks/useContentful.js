@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import {
   fetchSiteInfo,
   fetchPartners,
-  fetchClients,
   fetchServices,
   fetchJobs,
   fetchTeamMembers,
@@ -13,7 +12,6 @@ import {
 import {
   SITE as SITE_FALLBACK,
   PARTNERS as PARTNERS_FALLBACK,
-  CLIENTS  as CLIENTS_FALLBACK,
   SERVICES as SERVICES_FALLBACK,
   JOBS     as JOBS_FALLBACK,
 } from '../data/siteData'
@@ -57,7 +55,6 @@ export function useFetch(fetcher, fallback) {
 // ── Per-resource hooks ──
 export function useSiteInfo()     { return useFetch(fetchSiteInfo,    SITE_FALLBACK)     }
 export function usePartners()     { return useFetch(fetchPartners,    PARTNERS_FALLBACK) }
-export function useClients()      { return useFetch(fetchClients,     CLIENTS_FALLBACK)  }
 export function useServices()     { return useFetch(fetchServices,    SERVICES_FALLBACK) }
 export function useJobs()         { return useFetch(fetchJobs,        JOBS_FALLBACK)     }
 export function useTeamMembers()  { return useFetch(fetchTeamMembers, TEAM_FALLBACK)     }

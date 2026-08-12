@@ -4,7 +4,7 @@ import { useScrollReveal, useCounterAnimation } from '../hooks/useScrollReveal'
 import { ServiceIcon } from '../components/Icons'
 import HeroCanvas from '../components/HeroCanvas'
 import { TESTIMONIALS, STATS } from '../data/siteData'
-import { usePartners, useClients, useServices, useAnnouncements, useOffers } from '../hooks/useContentful'
+import { usePartners, useServices, useAnnouncements, useOffers } from '../hooks/useContentful'
 
 // Shown in the "New Offers" panel whenever the client hasn't published any
 // offers in Contentful yet — keeps the section from ever looking empty.
@@ -197,15 +197,13 @@ export default function Home() {
   const [announcementImage, setAnnouncementImage] = useState(null)
 
   const { data: SERVICES } = useServices()
-  const { data: CLIENTS  } = useClients()
   const { data: PARTNERS } = usePartners()
   const { data: ANNOUNCEMENTS } = useAnnouncements()
   const { data: OFFERS   } = useOffers()
 
   const featuredOffer = OFFERS.length > 0 ? OFFERS[0] : DEFAULT_OFFER
 
-  // Duplicate for infinite marquees
-  const clientsAll  = [...CLIENTS,  ...CLIENTS]
+  // Duplicate for infinite marquee
   const partnersAll = [...PARTNERS, ...PARTNERS]
 
   const features = [
@@ -380,36 +378,30 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CLIENTS */}
-      <section className="clients-section">
+      {/* TRUSTED BY — industries served, no named clients (NDA) */}
+      <section className="section trusted-section">
         <div className="container">
-          <div className="clients-header">
-            <div className="clients-header-left">
-              <div className="section-label reveal">Our Clients</div>
-              <h2 className="reveal reveal-delay-1">Trusted by leading organizations<br/>across the Philippines.</h2>
-            </div>
+          <div className="trusted-header">
+            <div className="section-label reveal">Our Reach</div>
+            <h2 className="reveal reveal-delay-1">Trusted by Leading Organizations<br/>Across the Philippines.</h2>
+            <p className="reveal reveal-delay-2">
+              We are proud to support organizations across BPO, Financial Services, Hospitality, Healthcare,
+              Retail, Education, Manufacturing, and other industries with reliable IT infrastructure and
+              cybersecurity solutions.
+            </p>
           </div>
-        </div>
-        <div className="clients-marquee-wrap">
-          <div className="clients-marquee clients-marquee--drift">
-            {clientsAll.map((client, i) => (
-              <div className="cmarq-card" key={i}>
-                <div className="cmarq-logo-wrap">
-                  <img
-                    src={client.logo}
-                    alt={client.name}
-                    onError={e => { e.currentTarget.style.display='none'; e.currentTarget.nextSibling.style.display='flex' }}
-                  />
-                  <div className="cmarq-fallback">{client.name}</div>
-                </div>
-              </div>
+
+          <div className="trusted-industries reveal reveal-delay-3">
+            {['BPO', 'Financial Services', 'Hospitality', 'Healthcare', 'Retail', 'Education', 'Manufacturing', '& More'].map((ind, i) => (
+              <span key={i} className="trusted-industry-chip">{ind}</span>
             ))}
           </div>
-        </div>
-        <div className="container">
-          <div className="clients-footnote reveal">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="15" height="15"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            All client relationships are backed by signed NDAs and service agreements — your data and infrastructure are always protected.
+
+          <div className="trusted-footnote reveal reveal-delay-3">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="15" height="15">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            Client identities are protected under NDA — every engagement is backed by signed confidentiality and service agreements.
           </div>
         </div>
       </section>
