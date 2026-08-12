@@ -9,9 +9,18 @@ import { usePartners, useServices, useAnnouncements, useOffers } from '../hooks/
 // Shown in the "New Offers" panel whenever the client hasn't published any
 // offers in Contentful yet — keeps the section from ever looking empty.
 const DEFAULT_OFFER = {
+  title: 'ThreatSentra',
+  desc: "CebNet's own cybersecurity brand — Email Security and Endpoint Security, powered by Check Point.",
+  badge: 'Now Available',
+  link: '/#threatsentra',
+  linkLabel: 'See Details',
+}
+
+// Shown in the "Announcements" panel whenever the client hasn't published any
+// announcements in Contentful yet — keeps the section from ever looking empty.
+const DEFAULT_ANNOUNCEMENT = {
   title: 'Free Security Checkup',
-  desc: 'A no-cost professional service to help you understand the current state of your network security — no strings attached.',
-  badge: 'Free · Professional Services',
+  message: 'Claim a no-cost professional assessment of your current network security posture — no strings attached.',
   link: '/services#security-checkup',
   linkLabel: 'See Details',
 }
@@ -302,11 +311,13 @@ export default function Home() {
               <div className="updates-card-divider"></div>
               <div className="updates-card-body">
                 {ANNOUNCEMENTS.length === 0 ? (
-                  <div className="updates-placeholder">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-                      <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12.5"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-                    </svg>
-                    <p>No current announcements. Check back soon for company news and updates.</p>
+                  <div className="updates-offer">
+                    <strong>{DEFAULT_ANNOUNCEMENT.title}</strong>
+                    <p>{DEFAULT_ANNOUNCEMENT.message}</p>
+                    <Link to={DEFAULT_ANNOUNCEMENT.link} className="btn btn-outline updates-offer-cta">
+                      {DEFAULT_ANNOUNCEMENT.linkLabel}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+                    </Link>
                   </div>
                 ) : (
                   <ul className="updates-list">
@@ -468,6 +479,104 @@ export default function Home() {
               <FlipCard key={i} svc={svc} i={i} />
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* THREATSENTRA — CebNet's own security brand, powered by Check Point */}
+      <section id="threatsentra" className="section threatsentra-section">
+        <div className="container">
+
+          <div className="ts-intro">
+            <div className="section-label reveal">Introducing</div>
+            <h2 className="reveal reveal-delay-1">ThreatSentra</h2>
+            <p className="ts-tagline reveal reveal-delay-2">CebNet's own cybersecurity brand, powered by Check Point.</p>
+            <div className="ts-intro-box reveal reveal-delay-2">
+              <p>ThreatSentra is a cybersecurity initiative designed to help organizations identify threats, understand security risks, and strengthen protection across the areas threat actors target most.</p>
+            </div>
+          </div>
+
+          <div className="ts-clear reveal reveal-delay-2">
+            <h3>Cybersecurity Made Clear.</h3>
+            <p>Modern cyber threats can reach an organization through a single email, a malicious file, or a compromised device. ThreatSentra brings a clear, security-focused approach to help businesses recognize threats and protect what matters most.</p>
+          </div>
+
+          <div className="ts-solutions">
+            <div className="ts-solution-card reveal reveal-delay-1">
+              <div className="ts-solution-image">
+                <img src="/assets/img/threatsentra/threatsentra-email-security.jpg" alt="ThreatSentra Email Security" />
+              </div>
+              <div className="ts-solution-body">
+                <h4>ThreatSentra Email Security</h4>
+                <div className="ts-solution-headline">See Beyond the Message.</div>
+                <p>Email is one of the most common ways threat actors reach an organization. ThreatSentra Email Security helps identify and protect against suspicious and potentially dangerous messages before they become a security incident.</p>
+                <ul className="ts-solution-list">
+                  {[
+                    'Phishing and impersonation attempts',
+                    'Malicious links and attachments',
+                    'Suspicious or unwanted email activity',
+                    'A stronger layer of protection for users and business communication',
+                  ].map((item, i) => (
+                    <li key={i}>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20,6 9,17 4,12"/></svg>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="ts-solution-card reveal reveal-delay-2">
+              <div className="ts-solution-image">
+                <img src="/assets/img/threatsentra/threatsentra-endpoint-security.jpg" alt="ThreatSentra Endpoint Security" />
+              </div>
+              <div className="ts-solution-body">
+                <h4>ThreatSentra Endpoint Security</h4>
+                <div className="ts-solution-headline">Know What's Running. Stop What's Dangerous.</div>
+                <p>Every laptop and workstation can become an entry point for the threat actor. ThreatSentra Endpoint Security helps protect business devices by detecting malicious activity and threats such as malware and ransomware.</p>
+                <ul className="ts-solution-list">
+                  {[
+                    'Endpoint visibility and threat detection',
+                    'Protection against malware and ransomware',
+                    'Identification of suspicious or dangerous activity',
+                    'Faster action when threats are detected',
+                  ].map((item, i) => (
+                    <li key={i}>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20,6 9,17 4,12"/></svg>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="ts-approach reveal reveal-delay-2">
+            <h3>The ThreatSentra Approach</h3>
+            <div className="ts-approach-grid">
+              {[
+                { num: '01', title: 'See', desc: 'Identify suspicious activity and potential threats.' },
+                { num: '02', title: 'Understand', desc: 'Know the risk and what could be affected.' },
+                { num: '03', title: 'Protect', desc: 'Take action to strengthen your security.' },
+              ].map((step, i) => (
+                <div className="ts-approach-step" key={i}>
+                  <span className="ts-approach-num">{step.num}</span>
+                  <h4>{step.title}</h4>
+                  <p>{step.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="ts-closing reveal reveal-delay-3">
+            <div className="ts-closing-brand">Threat<span>Sentra</span></div>
+            <p className="ts-closing-tagline">See the Threat. Understand the Risk. Protect What Matters.</p>
+            <div className="ts-closing-sub">Email Security&nbsp; &middot; &nbsp;Endpoint Security</div>
+            <Link to="/contact" className="btn btn-primary" style={{ marginTop: '28px' }}>
+              Talk to an Expert
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+            </Link>
+          </div>
+
         </div>
       </section>
 
