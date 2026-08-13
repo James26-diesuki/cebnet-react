@@ -363,7 +363,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <div>
-                  <span className="updates-card-label">Announcements</span>
+                  <span className="updates-card-label"><span className="updates-live-dot"></span>Announcements</span>
                   <h3>Company Updates</h3>
                 </div>
               </div>
@@ -381,7 +381,7 @@ export default function Home() {
                 ) : (
                   <ul className="updates-list">
                     {ANNOUNCEMENTS.map((a, i) => (
-                      <li key={i} className="updates-list-item">
+                      <li key={i} className={`updates-list-item reveal reveal-delay-${(i % 5) + 1}`}>
                         {a.images?.[0] && (
                           <div
                             className="updates-list-image"
@@ -400,7 +400,10 @@ export default function Home() {
                             </span>
                           </div>
                         )}
-                        {a.date && <span className="updates-list-date">{a.date}</span>}
+                        <div className="updates-list-item-top">
+                          {a.date && <span className="updates-list-date">{a.date}</span>}
+                          {i === 0 && <span className="updates-new-badge">New</span>}
+                        </div>
                         <strong>{a.title}</strong>
                         {a.message && (
                           <p>
@@ -431,7 +434,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <div>
-                  <span className="updates-card-label">New Offers</span>
+                  <span className="updates-card-label"><span className="updates-live-dot"></span>New Offers</span>
                   <h3>Current Promotions</h3>
                 </div>
               </div>
@@ -439,13 +442,13 @@ export default function Home() {
               <div className="updates-card-body">
                 {featuredOffer ? (
                   <div className="updates-offer">
-                    {featuredOffer.badge && <span className="updates-offer-badge">{featuredOffer.badge}</span>}
-                    <div className="updates-offer-title-row">
+                    {featuredOffer.badge && <span className="updates-offer-badge reveal">{featuredOffer.badge}</span>}
+                    <div className="updates-offer-title-row reveal reveal-delay-1">
                       <strong>{featuredOffer.title}</strong>
                       <OfferLogo src={featuredOffer.logo} alt={`${featuredOffer.title} logo`} />
                     </div>
-                    <p>{featuredOffer.desc}</p>
-                    <Link to={featuredOffer.link} className="btn btn-outline updates-offer-cta">
+                    <p className="reveal reveal-delay-2">{featuredOffer.desc}</p>
+                    <Link to={featuredOffer.link} className="btn btn-outline updates-offer-cta reveal reveal-delay-3">
                       {featuredOffer.linkLabel}
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
                     </Link>
