@@ -36,6 +36,19 @@ function resolveAssets(assetRefs, includes) {
     .filter(Boolean)
 }
 
+// ── Format a Contentful "Date" field value into MM/DD/YYYY for display.
+// Contentful returns date-only fields as "2026-08-18" and full date/time
+// fields as "2026-08-18T00:00:00.000Z" — this reads the date portion
+// directly from the string instead of `new Date(str)`, since parsing a
+// date-only string that way applies UTC and can shift the displayed day
+// by one depending on the visitor's local timezone. ──
+function formatDate(dateStr) {
+  if (!dateStr) return ''
+  const [year, month, day] = dateStr.split('T')[0].split('-')
+  if (!year || !month || !day) return dateStr
+  return `${month}/${day}/${year}`
+}
+
 // ── SITE INFO ──
 export async function fetchSiteInfo() {
   try {
@@ -141,11 +154,13 @@ export async function fetchAnnouncements() {
     const data = await fetchEntries('announcement')
     return data.items
       .map(item => ({
-        title:   item.fields.title   || '',
-        message: item.fields.message || '',
-        date:    item.fields.date    || '',
-        images:  resolveAssets(item.fields.images, data.includes),
-        order:   item.fields.order   ?? 99,
+        title:     item.fields.title     || '',
+        message:   item.fields.message   || '',
+        date:      formatDate(item.fields.date),
+        images:    resolveAssets(item.fields.images, data.includes),
+        link:      item.fields.link      || '',
+        linkLabel: item.fields.linkLabel || 'See Details',
+        order:     item.fields.order     ?? 99,
       }))
       .sort((a, b) => a.order - b.order)
   } catch (e) {
