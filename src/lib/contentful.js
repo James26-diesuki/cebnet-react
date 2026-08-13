@@ -175,6 +175,19 @@ export async function fetchAnnouncements() {
 // ── OFFERS ──
 // Client-managed in Contentful (content type: "offer").
 // "link" can point anywhere (e.g. /services or an external URL); defaults to /services when left blank.
+
+// ── Splits a "Long text" field into a list, one item per line — used for
+// detailsOverview/detailsRules so editors can paste a whole block at once
+// instead of adding list items one by one. Strips a leading "-", "*", or
+// "•" in case the pasted text still has bullet markers on it. ──
+function parseLines(text) {
+  if (!text) return []
+  return text
+    .split('\n')
+    .map(line => line.replace(/^[-*•]\s*/, '').trim())
+    .filter(Boolean)
+}
+
 export async function fetchOffers() {
   try {
     const data = await fetchEntries('offer')
@@ -188,34 +201,15 @@ export async function fetchOffers() {
         linkLabel: item.fields.linkLabel   || 'See Details',
         // Optional — powers the "View Details" on-site modal for offers with
         // longer terms/rules that shouldn't bloat the compact offer card.
-        // "detailsOverview" and "detailsRules" are both "Short text, list" fields.
-        detailsOverview: Array.isArray(item.fields.detailsOverview) ? item.fields.detailsOverview : [],
-        detailsRules:    Array.isArray(item.fields.detailsRules)    ? item.fields.detailsRules    : [],
+        // "detailsOverview" and "detailsRules" are both "Long text" fields —
+        // one paragraph/rule per line.
+        detailsOverview: parseLines(item.fields.detailsOverview),
+        detailsRules:    parseLines(item.fields.detailsRules),
         order:     item.fields.order       ?? 99,
       }))
       .sort((a, b) => a.order - b.order)
   } catch (e) {
     console.error('fetchOffers error:', e)
-    return []
-  }
-}
-
-// ── TEAM MEMBERS ──
-export async function fetchTeamMembers() {
-  try {
-    const data = await fetchEntries('teamMember')
-    return data.items
-      .map(item => ({
-        name:     item.fields.name  || '',
-        role:     item.fields.role  || '',
-        bio:      item.fields.bio   || '',
-        order:    item.fields.order ?? 99,
-        photo:    resolveAsset(item.fields.photo?.sys?.id, data.includes) || '',
-        initials: (item.fields.name || '?').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase(),
-      }))
-      .sort((a, b) => a.order - b.order)
-  } catch (e) {
-    console.error('fetchTeamMembers error:', e)
     return []
   }
 }

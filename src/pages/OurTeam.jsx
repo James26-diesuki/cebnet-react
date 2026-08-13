@@ -1,5 +1,5 @@
 import { useScrollReveal } from '../hooks/useScrollReveal'
-import { useTeamMembers, useGallery } from '../hooks/useContentful'
+import { useGallery } from '../hooks/useContentful'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
@@ -55,7 +55,6 @@ function GalleryLightbox({ image, title, onClose }) {
 
 export default function OurTeam() {
   useScrollReveal()
-  const { data: consultants } = useTeamMembers()
   const { data: gallery     } = useGallery()
   const [lightbox, setLightbox] = useState(null)
 
@@ -91,40 +90,6 @@ export default function OurTeam() {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CONSULTANTS */}
-      <section className="section section-dark">
-        <div className="container">
-          <div className="services-header">
-            <div className="section-label reveal">The People Behind CebNet</div>
-            <h2 className="reveal reveal-delay-1">Our Lead Consultants</h2>
-          </div>
-          <div className="consultants-grid">
-            {consultants.map((c, i) => (
-              <div key={i} className={`consultant-card reveal reveal-delay-${i + 1}`}>
-                <div className="consultant-photo">
-                  <img
-                    src={c.photo}
-                    alt={c.name}
-                    onError={e => {
-                      e.currentTarget.style.display = 'none'
-                      e.currentTarget.nextSibling.style.display = 'flex'
-                    }}
-                  />
-                  <div className="consultant-photo-fallback" style={{ display: 'none' }}>
-                    {c.initials}
-                  </div>
-                </div>
-                <div className="consultant-info">
-                  <h3>{c.name}</h3>
-                  <div className="consultant-role">{c.role}</div>
-                  <p>{c.bio}</p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
