@@ -781,6 +781,26 @@ p  { color: var(--clr-muted); }
   margin-bottom: 20px;
 }
 .updates-offer-cta { padding: 11px 22px; font-size: .82rem; }
+.updates-offer-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.updates-offer-viewdetails {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--clr-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color var(--transition);
+}
+.updates-offer-viewdetails:hover { color: var(--clr-accent3); }
 
 @media (max-width: 900px) {
   .updates-grid { grid-template-columns: 1fr; }
@@ -1088,6 +1108,67 @@ p  { color: var(--clr-muted); }
 }
 .video-lightbox-close:hover { opacity: 1; }
 .video-lightbox-close svg { width: 18px; height: 18px; }
+
+/* Offer details modal — reuses .video-lightbox chrome, overrides sizing
+   for a scrollable text panel instead of a fixed 16:9 media frame. */
+.offer-details-modal {
+  aspect-ratio: auto;
+  width: 100%;
+  max-width: 640px;
+  max-height: 82vh;
+  background: var(--clr-surface);
+}
+.offer-details-body {
+  max-height: 82vh;
+  overflow-y: auto;
+  padding: 36px 32px;
+}
+.offer-details-body h3 {
+  color: var(--clr-white);
+  font-size: 1.4rem;
+  margin: 6px 0 22px;
+}
+.offer-details-block { margin-bottom: 24px; }
+.offer-details-block h4 {
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--clr-accent3);
+  margin-bottom: 10px;
+}
+.offer-details-block p {
+  font-size: .9rem;
+  line-height: 1.7;
+  color: var(--clr-muted);
+  margin: 0 0 10px;
+}
+.offer-details-rules {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.offer-details-rules li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: .84rem;
+  line-height: 1.6;
+  color: var(--clr-muted);
+}
+.offer-details-rules li svg {
+  width: 14px; height: 14px;
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: var(--clr-accent3);
+}
+.offer-details-cta { margin-top: 8px; }
+@media (max-width: 640px) {
+  .offer-details-body { padding: 28px 20px; }
+}
  
 /* =========================================
    SERVICES SECTION

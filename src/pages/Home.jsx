@@ -10,12 +10,32 @@ import { usePartners, useServices, useAnnouncements, useOffers } from '../hooks/
 // Shown in the "New Offers" panel whenever the client hasn't published any
 // offers in Contentful yet — keeps the section from ever looking empty.
 const DEFAULT_OFFER = {
-  title: 'ThreatSentra',
-  desc: "CebNet's own cybersecurity brand — Email Security and Endpoint Security, powered by Check Point.",
-  badge: 'Now Available',
-  logo: '/assets/img/threatsentra/threatsentra-logo.png',
-  link: '/#threatsentra',
+  title: 'The MSP Email Security Challenge!',
+  desc: "If your email security is missing threats, it's costing you. Take the $10K Challenge and experience the difference stronger detection and prevention really makes.",
+  badge: '$10K Challenge',
+  logo: '',
+  link: 'https://pages.checkpoint.com/emailsecurity-msp-10k-challenge.html',
   linkLabel: 'See Details',
+  detailsOverview: [
+    'CebNet will set up a 14 day health check of your Microsoft Office 365 or Gmail environment using Check Point Email Security.',
+    "If our patented approach to email security does not uncover more phishing and/or malware attacks than your existing security provider missed, then we'll send you the $10,000 USD.",
+  ],
+  detailsRules: [
+    'Participants must be new partners or customers who have not previously subscribed to Check Point Email Security.',
+    'Participants must be using Microsoft 365 or Google workspace for corporate email.',
+    'Admin is required to authorized us to do the initial setup',
+    'Check Point Email Security must be deployed to a production (cloud) mail environment of 50 or more users.',
+    'Participants must follow the Check Point 14-day Proof of Value process, including meetings with Check Point.',
+    'The applicant is required to participate in a technical walkthrough of the Check Point Email Security product, conducted in collaboration with a Check Point Sales Engineer.',
+    'The POC must be completed and licensed by Dec 21st, 2026.',
+    'If we can not discover any threats in your mail environment from the 14-day proof of value we will send you a $10K USD.',
+    'Users of API solutions such as Abnormal and Ironscales do not qualify.',
+    'Participants must work through MSP pay as you go partners of Check Point.',
+    'Signing up for the challenge does not guarantee participation.',
+    'The company must have been in continuous operation for at least one (1) year and be a legally registered business entity.',
+    "Payment will be issued within thirty (30) days following Check Point's determination, at its sole discretion, that Check Point Email Security did not detect any threats, as defined under the terms of the promotion.",
+    'Check Point Software Technologies Ltd. reserves the right to modify or terminate this promotion at any time, at its sole discretion, without prior notice.',
+  ],
 }
 
 // Shown in the "Announcements" panel whenever the client hasn't published any
@@ -25,6 +45,13 @@ const DEFAULT_ANNOUNCEMENT = {
   message: 'Claim a no-cost professional assessment of your current network security posture — no strings attached.',
   link: '/services#security-checkup',
   linkLabel: 'See Details',
+}
+
+// ── True for absolute URLs (e.g. a partner's own site) — these need a plain
+// <a target="_blank"> rather than react-router's <Link>, which only knows
+// how to navigate to internal routes. ──
+function isExternalLink(url) {
+  return /^https?:\/\//i.test(url || '')
 }
 
 // ── Typing animation badge ──
@@ -217,6 +244,81 @@ function InlineLogo({ src, alt }) {
 }
 
 
+// ── Offer Details Modal — scrollable panel for offers with longer terms/
+// rules (e.g. a promo with legal fine print) that shouldn't bloat the
+// compact offer card itself. Reuses the same lightbox chrome as the video
+// and image lightboxes above for visual consistency. ──
+function OfferDetailsModal({ offer, onClose }) {
+  useEffect(() => {
+    const onKey = e => { if (e.key === 'Escape') onClose() }
+    document.addEventListener('keydown', onKey)
+    document.body.style.overflow = offer ? 'hidden' : ''
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [offer, onClose])
+
+  if (!offer) return null
+
+  return (
+    <div
+      className="video-lightbox active"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${offer.title} details`}
+      onClick={e => { if (e.target === e.currentTarget) onClose() }}
+    >
+      <div className="video-lightbox-inner offer-details-modal">
+        <button className="video-lightbox-close" onClick={onClose} aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+          Close
+        </button>
+        <div className="offer-details-body">
+          <span className="updates-card-label"><span className="updates-live-dot"></span>Challenge Details</span>
+          <h3>{offer.title}</h3>
+
+          {offer.detailsOverview?.length > 0 && (
+            <div className="offer-details-block">
+              <h4>Challenge Overview</h4>
+              {offer.detailsOverview.map((p, i) => <p key={i}>{p}</p>)}
+            </div>
+          )}
+
+          {offer.detailsRules?.length > 0 && (
+            <div className="offer-details-block">
+              <h4>Challenge Rules</h4>
+              <ul className="offer-details-rules">
+                {offer.detailsRules.map((r, i) => (
+                  <li key={i}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20,6 9,17 4,12"/></svg>
+                    {r}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {offer.link && (
+            <a
+              href={offer.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary offer-details-cta"
+            >
+              {offer.linkLabel || 'See Details'}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+
 // ── Flip card with touch support ──
 function FlipCard({ svc, i }) {
   const [flipped, setFlipped] = useState(false)
@@ -263,6 +365,7 @@ export default function Home() {
   useCounterAnimation()
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [announcementImage, setAnnouncementImage] = useState(null)
+  const [offerDetailsOpen, setOfferDetailsOpen] = useState(false)
 
   const { data: SERVICES } = useServices()
   const { data: PARTNERS } = usePartners()
@@ -448,10 +551,28 @@ export default function Home() {
                       <OfferLogo src={featuredOffer.logo} alt={`${featuredOffer.title} logo`} />
                     </div>
                     <p className="reveal reveal-delay-2">{featuredOffer.desc}</p>
-                    <Link to={featuredOffer.link} className="btn btn-outline updates-offer-cta reveal reveal-delay-3">
-                      {featuredOffer.linkLabel}
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
-                    </Link>
+                    <div className="updates-offer-actions reveal reveal-delay-3">
+                      {isExternalLink(featuredOffer.link) ? (
+                        <a href={featuredOffer.link} target="_blank" rel="noopener noreferrer" className="btn btn-outline updates-offer-cta">
+                          {featuredOffer.linkLabel}
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+                        </a>
+                      ) : (
+                        <Link to={featuredOffer.link} className="btn btn-outline updates-offer-cta">
+                          {featuredOffer.linkLabel}
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+                        </Link>
+                      )}
+                      {(featuredOffer.detailsOverview?.length > 0 || featuredOffer.detailsRules?.length > 0) && (
+                        <button
+                          type="button"
+                          className="updates-offer-viewdetails"
+                          onClick={() => setOfferDetailsOpen(true)}
+                        >
+                          View Challenge Details
+                        </button>
+                      )}
+                    </div>
                   </div>
                 ) : (
                   <div className="updates-placeholder">
@@ -540,6 +661,7 @@ export default function Home() {
         </div>
         <VideoLightbox open={lightboxOpen} onClose={() => setLightboxOpen(false)} />
         <ImageLightbox image={announcementImage} onClose={() => setAnnouncementImage(null)} />
+        <OfferDetailsModal offer={offerDetailsOpen ? featuredOffer : null} onClose={() => setOfferDetailsOpen(false)} />
       </section>
 
       {/* SERVICES */}

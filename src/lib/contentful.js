@@ -186,6 +186,11 @@ export async function fetchOffers() {
         logo:      resolveAsset(item.fields.logo?.sys?.id, data.includes, { width: 200 }) || '',
         link:      item.fields.link        || '/services',
         linkLabel: item.fields.linkLabel   || 'See Details',
+        // Optional — powers the "View Details" on-site modal for offers with
+        // longer terms/rules that shouldn't bloat the compact offer card.
+        // "detailsOverview" and "detailsRules" are both "Short text, list" fields.
+        detailsOverview: Array.isArray(item.fields.detailsOverview) ? item.fields.detailsOverview : [],
+        detailsRules:    Array.isArray(item.fields.detailsRules)    ? item.fields.detailsRules    : [],
         order:     item.fields.order       ?? 99,
       }))
       .sort((a, b) => a.order - b.order)
