@@ -372,6 +372,12 @@ export default function Home() {
                         {a.date && <span className="updates-list-date">{a.date}</span>}
                         <strong>{a.title}</strong>
                         {a.message && <p>{a.message}</p>}
+                        {a.link && (
+                          <Link to={a.link} className="btn btn-outline updates-offer-cta" style={{ marginTop: '10px' }}>
+                            {a.linkLabel}
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+                          </Link>
+                        )}
                       </li>
                     ))}
                   </ul>
