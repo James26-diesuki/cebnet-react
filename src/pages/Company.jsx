@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useScrollReveal } from '../hooks/useScrollReveal'
-import PageHero from '../components/PageHero'
 import { STATS } from '../data/siteData'
 import { usePartners } from '../hooks/useContentful'
+import PartnerLogo from '../components/PartnerLogo'
 
 const pillars = [
   { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>', title: 'Customer Focused', desc: "We don't give you off-the-shelf products that may or may not be a good fit for you. We strive to understand your needs, and we address those needs with focus-oriented systems integration." },
@@ -12,14 +12,6 @@ const pillars = [
   { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>', title: 'Effective', desc: "It's not about the technology; it's how you use it. Our consultants value both IT and industry expertise — the only true test of our value is how effective we are in enabling your success." },
   { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="8" r="6"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>', title: 'Trustworthy', desc: "Us here in CebNet understand that it's all about trust. Our clients trust us to empower their businesses, and our business is to secure and deserve that trust." },
 ]
-
-const history = [
-  { year: 'December 2017', title: 'The Idea Takes Shape', desc: 'CebNet Technologies Inc. started from an idea posted on social media by one of the founders, looking for visionary technical entrepreneurs to collaborate with in Cebu. Three members met to discuss the idea that would soon become a company.' },
-  { year: 'January 2018',  title: 'CebNet is Born',      desc: 'The idea became reality — CebNet Technologies, Inc. was officially established. That same month, two more members joined to complete the team and make it more dynamic.' },
-  { year: 'Today',         title: 'A Resilient Organization', desc: 'This group of young IT professionals with diverse backgrounds in network and security comprises a resilient organization with a breadth of experience spanning over 20 years — catering to different market segments with customers across the country.' },
-]
-
-
 
 const wheelItems = [
   { pos: 'wheel-top',          letter: 'C', label: 'Customer Focused', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>' },
@@ -184,8 +176,7 @@ export default function Company() {
           <div className="marquee-track">
             {partnersAll.map((p, i) => (
               <div className="partner-logo-card" key={i}>
-                <img src={p.logo} alt={p.name} title={p.name} onError={e => { e.currentTarget.style.display='none'; e.currentTarget.nextSibling.style.display='flex' }} />
-                <div className="partner-logo-fallback" style={{display:'none'}}>{p.name}</div>
+                <PartnerLogo src={p.logo} name={p.name} fallbackClassName="partner-logo-fallback" />
               </div>
             ))}
           </div>
