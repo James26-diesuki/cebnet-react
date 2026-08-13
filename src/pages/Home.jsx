@@ -205,13 +205,14 @@ function InlineLogo({ src, alt }) {
   }
 
   return (
-    <img
-      key={attempt}
-      src={src}
-      alt={alt}
-      className="updates-announcement-logo"
-      onError={handleError}
-    />
+    <span key={attempt} className="updates-announcement-logo-wrap">
+      <img
+        src={src}
+        alt={alt}
+        className="updates-announcement-logo"
+        onError={handleError}
+      />
+    </span>
   )
 }
 
