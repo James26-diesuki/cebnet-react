@@ -158,6 +158,9 @@ export async function fetchAnnouncements() {
         message:   item.fields.message   || '',
         date:      formatDate(item.fields.date),
         images:    resolveAssets(item.fields.images, data.includes),
+        // Optional inline brand logo (e.g. a partner's logo) shown right after
+        // the message text — used for things like "...powered by [logo]".
+        logo:      resolveAsset(item.fields.logo?.sys?.id, data.includes, { width: 200 }) || '',
         link:      item.fields.link      || '',
         linkLabel: item.fields.linkLabel || 'See Details',
         order:     item.fields.order     ?? 99,

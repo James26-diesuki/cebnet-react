@@ -186,6 +186,36 @@ function OfferLogo({ src, alt }) {
 }
 
 
+// ── Small inline logo shown mid-sentence in announcement text (e.g.
+// "...powered by [logo]") — same retry-on-error reasoning as OfferLogo/PartnerLogo. ──
+function InlineLogo({ src, alt }) {
+  const [attempt, setAttempt] = useState(0)
+  const [hidden,  setHidden]  = useState(false)
+  const retries = useRef(0)
+
+  if (!src || hidden) return null
+
+  const handleError = () => {
+    if (retries.current < 2) {
+      retries.current += 1
+      setTimeout(() => setAttempt(a => a + 1), 400 * retries.current)
+    } else {
+      setHidden(true)
+    }
+  }
+
+  return (
+    <img
+      key={attempt}
+      src={src}
+      alt={alt}
+      className="updates-announcement-logo"
+      onError={handleError}
+    />
+  )
+}
+
+
 // ── Flip card with touch support ──
 function FlipCard({ svc, i }) {
   const [flipped, setFlipped] = useState(false)
@@ -371,7 +401,12 @@ export default function Home() {
                         )}
                         {a.date && <span className="updates-list-date">{a.date}</span>}
                         <strong>{a.title}</strong>
-                        {a.message && <p>{a.message}</p>}
+                        {a.message && (
+                          <p>
+                            {a.message}
+                            {a.logo && <InlineLogo src={a.logo} alt={`${a.title} logo`} />}
+                          </p>
+                        )}
                         {a.link && (
                           <Link to={a.link} className="btn btn-outline updates-offer-cta" style={{ marginTop: '10px' }}>
                             {a.linkLabel}

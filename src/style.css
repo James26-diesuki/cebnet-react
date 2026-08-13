@@ -622,6 +622,16 @@ p  { color: var(--clr-muted); }
   line-height: 1.6;
   margin: 0;
 }
+.updates-announcement-logo {
+  display: inline-block;
+  height: 20px;
+  width: auto;
+  max-width: 110px;
+  object-fit: contain;
+  vertical-align: middle;
+  margin-left: 6px;
+  transform: translateY(-1px);
+}
 .updates-list-date {
   display: inline-block;
   font-size: .72rem;
