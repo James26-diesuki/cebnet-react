@@ -234,6 +234,7 @@ export default function Home() {
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [announcementImage, setAnnouncementImage] = useState(null)
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [carouselPaused, setCarouselPaused] = useState(false)
   const touchStartX = useRef(null)
 
   const { data: SERVICES } = useServices()
@@ -246,12 +247,26 @@ export default function Home() {
   const prevSlide = () => setCurrentSlide(i => (i - 1 + slides.length) % slides.length)
   const nextSlide = () => setCurrentSlide(i => (i + 1) % slides.length)
 
-  const handleTouchStart = e => { touchStartX.current = e.touches[0].clientX }
+  // Autoplay — advances every 6s. Restarts its timer whenever the slide
+  // changes (from autoplay itself or a manual click), and pauses on
+  // hover/touch and while the image lightbox is open, so it never fights
+  // someone actively reading or browsing.
+  useEffect(() => {
+    if (slides.length <= 1 || carouselPaused || announcementImage) return
+    const timer = setInterval(nextSlide, 6000)
+    return () => clearInterval(timer)
+  }, [activeSlide, carouselPaused, announcementImage, slides.length])
+
+  const handleTouchStart = e => {
+    touchStartX.current = e.touches[0].clientX
+    setCarouselPaused(true)
+  }
   const handleTouchEnd = e => {
     if (touchStartX.current === null) return
     const delta = e.changedTouches[0].clientX - touchStartX.current
     if (Math.abs(delta) > 50) { delta > 0 ? prevSlide() : nextSlide() }
     touchStartX.current = null
+    setCarouselPaused(false)
   }
 
   // Duplicate for infinite marquee
@@ -341,7 +356,11 @@ export default function Home() {
             <h2 className="reveal reveal-delay-1">Company Updates</h2>
           </div>
 
-          <div className="announce-carousel reveal reveal-delay-2">
+          <div
+            className="announce-carousel reveal reveal-delay-2"
+            onMouseEnter={() => setCarouselPaused(true)}
+            onMouseLeave={() => setCarouselPaused(false)}
+          >
             <button
               type="button"
               className="announce-arrow announce-arrow--prev"
