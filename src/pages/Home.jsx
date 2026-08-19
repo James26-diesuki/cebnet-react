@@ -5,38 +5,7 @@ import { ServiceIcon } from '../components/Icons'
 import PartnerLogo from '../components/PartnerLogo'
 import HeroCanvas from '../components/HeroCanvas'
 import { TESTIMONIALS, STATS } from '../data/siteData'
-import { usePartners, useServices, useAnnouncements, useOffers } from '../hooks/useContentful'
-
-// Shown in the "New Offers" panel whenever the client hasn't published any
-// offers in Contentful yet — keeps the section from ever looking empty.
-const DEFAULT_OFFER = {
-  title: 'The MSP Email Security Challenge!',
-  desc: "If your email security is missing threats, it's costing you. Take the $10K Challenge and experience the difference stronger detection and prevention really makes.",
-  badge: '$10K Challenge',
-  logo: '',
-  link: 'https://pages.checkpoint.com/emailsecurity-msp-10k-challenge.html',
-  linkLabel: 'See Details',
-  detailsOverview: [
-    'CebNet will set up a 14 day health check of your Microsoft Office 365 or Gmail environment using Check Point Email Security.',
-    "If our patented approach to email security does not uncover more phishing and/or malware attacks than your existing security provider missed, then we'll send you the $10,000 USD.",
-  ],
-  detailsRules: [
-    'Participants must be new partners or customers who have not previously subscribed to Check Point Email Security.',
-    'Participants must be using Microsoft 365 or Google workspace for corporate email.',
-    'Admin is required to authorized us to do the initial setup',
-    'Check Point Email Security must be deployed to a production (cloud) mail environment of 50 or more users.',
-    'Participants must follow the Check Point 14-day Proof of Value process, including meetings with Check Point.',
-    'The applicant is required to participate in a technical walkthrough of the Check Point Email Security product, conducted in collaboration with a Check Point Sales Engineer.',
-    'The POC must be completed and licensed by Dec 21st, 2026.',
-    'If we can not discover any threats in your mail environment from the 14-day proof of value we will send you a $10K USD.',
-    'Users of API solutions such as Abnormal and Ironscales do not qualify.',
-    'Participants must work through MSP pay as you go partners of Check Point.',
-    'Signing up for the challenge does not guarantee participation.',
-    'The company must have been in continuous operation for at least one (1) year and be a legally registered business entity.',
-    "Payment will be issued within thirty (30) days following Check Point's determination, at its sole discretion, that Check Point Email Security did not detect any threats, as defined under the terms of the promotion.",
-    'Check Point Software Technologies Ltd. reserves the right to modify or terminate this promotion at any time, at its sole discretion, without prior notice.',
-  ],
-}
+import { usePartners, useServices, useAnnouncements } from '../hooks/useContentful'
 
 // Shown in the "Announcements" panel whenever the client hasn't published any
 // announcements in Contentful yet — keeps the section from ever looking empty.
@@ -187,34 +156,8 @@ function ImageLightbox({ image, onClose }) {
 }
 
 
-// ── Small logo badge with retry-on-error (same reasoning as PartnerLogo —
-// one failed CDN hit shouldn't permanently hide it) ──
-function OfferLogo({ src, alt }) {
-  const [attempt, setAttempt] = useState(0)
-  const [hidden,  setHidden]  = useState(false)
-  const retries = useRef(0)
-
-  if (!src || hidden) return null
-
-  const handleError = () => {
-    if (retries.current < 2) {
-      retries.current += 1
-      setTimeout(() => setAttempt(a => a + 1), 400 * retries.current)
-    } else {
-      setHidden(true)
-    }
-  }
-
-  return (
-    <div className="updates-offer-logo-wrap">
-      <img key={attempt} src={src} alt={alt} className="updates-offer-logo" onError={handleError} />
-    </div>
-  )
-}
-
-
 // ── Small inline logo shown mid-sentence in announcement text (e.g.
-// "...powered by [logo]") — same retry-on-error reasoning as OfferLogo/PartnerLogo. ──
+// "...powered by [logo]") — same retry-on-error reasoning as PartnerLogo. ──
 function InlineLogo({ src, alt }) {
   const [attempt, setAttempt] = useState(0)
   const [hidden,  setHidden]  = useState(false)
@@ -240,81 +183,6 @@ function InlineLogo({ src, alt }) {
         onError={handleError}
       />
     </span>
-  )
-}
-
-
-// ── Offer Details Modal — scrollable panel for offers with longer terms/
-// rules (e.g. a promo with legal fine print) that shouldn't bloat the
-// compact offer card itself. Reuses the same lightbox chrome as the video
-// and image lightboxes above for visual consistency. ──
-function OfferDetailsModal({ offer, onClose }) {
-  useEffect(() => {
-    const onKey = e => { if (e.key === 'Escape') onClose() }
-    document.addEventListener('keydown', onKey)
-    document.body.style.overflow = offer ? 'hidden' : ''
-    return () => {
-      document.removeEventListener('keydown', onKey)
-      document.body.style.overflow = ''
-    }
-  }, [offer, onClose])
-
-  if (!offer) return null
-
-  return (
-    <div
-      className="video-lightbox active"
-      role="dialog"
-      aria-modal="true"
-      aria-label={`${offer.title} details`}
-      onClick={e => { if (e.target === e.currentTarget) onClose() }}
-    >
-      <div className="video-lightbox-inner offer-details-modal">
-        <button className="video-lightbox-close" onClick={onClose} aria-label="Close">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-          </svg>
-          Close
-        </button>
-        <div className="offer-details-body">
-          <span className="updates-card-label"><span className="updates-live-dot"></span>Challenge Details</span>
-          <h3>{offer.title}</h3>
-
-          {offer.detailsOverview?.length > 0 && (
-            <div className="offer-details-block">
-              <h4>Challenge Overview</h4>
-              {offer.detailsOverview.map((p, i) => <p key={i}>{p}</p>)}
-            </div>
-          )}
-
-          {offer.detailsRules?.length > 0 && (
-            <div className="offer-details-block">
-              <h4>Challenge Rules</h4>
-              <ul className="offer-details-rules">
-                {offer.detailsRules.map((r, i) => (
-                  <li key={i}>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20,6 9,17 4,12"/></svg>
-                    {r}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {offer.link && (
-            <a
-              href={offer.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-primary offer-details-cta"
-            >
-              {offer.linkLabel || 'See Details'}
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
-            </a>
-          )}
-        </div>
-      </div>
-    </div>
   )
 }
 
@@ -365,14 +233,26 @@ export default function Home() {
   useCounterAnimation()
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [announcementImage, setAnnouncementImage] = useState(null)
-  const [offerDetailsOpen, setOfferDetailsOpen] = useState(false)
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const touchStartX = useRef(null)
 
   const { data: SERVICES } = useServices()
   const { data: PARTNERS } = usePartners()
   const { data: ANNOUNCEMENTS } = useAnnouncements()
-  const { data: OFFERS   } = useOffers()
 
-  const featuredOffer = OFFERS.length > 0 ? OFFERS[0] : DEFAULT_OFFER
+  const slides = ANNOUNCEMENTS.length > 0 ? ANNOUNCEMENTS : [DEFAULT_ANNOUNCEMENT]
+  const activeSlide = Math.min(currentSlide, slides.length - 1)
+
+  const prevSlide = () => setCurrentSlide(i => (i - 1 + slides.length) % slides.length)
+  const nextSlide = () => setCurrentSlide(i => (i + 1) % slides.length)
+
+  const handleTouchStart = e => { touchStartX.current = e.touches[0].clientX }
+  const handleTouchEnd = e => {
+    if (touchStartX.current === null) return
+    const delta = e.changedTouches[0].clientX - touchStartX.current
+    if (Math.abs(delta) > 50) { delta > 0 ? prevSlide() : nextSlide() }
+    touchStartX.current = null
+  }
 
   // Duplicate for infinite marquee
   const partnersAll = [...PARTNERS, ...PARTNERS]
@@ -451,138 +331,120 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ANNOUNCEMENTS & NEW OFFERS — extends the hero */}
+      {/* ANNOUNCEMENTS — extends the hero */}
       <section className="section updates-section">
         <div className="container">
-          <div className="updates-grid">
+          <div className="services-header">
+            <div className="section-label reveal" style={{ justifyContent: 'center' }}>
+              <span className="updates-live-dot"></span>Announcements
+            </div>
+            <h2 className="reveal reveal-delay-1">Company Updates</h2>
+          </div>
 
-            {/* Announcements */}
-            <div className="updates-card reveal">
-              <div className="updates-card-header">
-                <div className="updates-card-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>
-                    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-                  </svg>
-                </div>
-                <div>
-                  <span className="updates-card-label"><span className="updates-live-dot"></span>Announcements</span>
-                  <h3>Company Updates</h3>
-                </div>
-              </div>
-              <div className="updates-card-divider"></div>
-              <div className="updates-card-body">
-                {ANNOUNCEMENTS.length === 0 ? (
-                  <div className="updates-offer">
-                    <strong>{DEFAULT_ANNOUNCEMENT.title}</strong>
-                    <p>{DEFAULT_ANNOUNCEMENT.message}</p>
-                    <Link to={DEFAULT_ANNOUNCEMENT.link} className="btn btn-outline updates-offer-cta">
-                      {DEFAULT_ANNOUNCEMENT.linkLabel}
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
-                    </Link>
-                  </div>
-                ) : (
-                  <ul className="updates-list">
-                    {ANNOUNCEMENTS.map((a, i) => (
-                      <li key={i} className={`updates-list-item reveal reveal-delay-${(i % 5) + 1}`}>
-                        {a.images?.[0] && (
-                          <div
-                            className="updates-list-image"
-                            onClick={() => setAnnouncementImage({ src: a.images[0], title: a.title })}
-                            role="button"
-                            tabIndex={0}
-                            onKeyDown={e => e.key === 'Enter' && setAnnouncementImage({ src: a.images[0], title: a.title })}
-                            aria-label={`View larger image for ${a.title}`}
-                          >
-                            <img src={a.images[0]} alt={a.title} />
-                            <span className="updates-list-image-zoom">
-                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-                                <line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
-                              </svg>
-                            </span>
-                          </div>
-                        )}
-                        <div className="updates-list-item-top">
-                          {a.date && <span className="updates-list-date">{a.date}</span>}
-                          {i === 0 && <span className="updates-new-badge">New</span>}
-                        </div>
-                        <strong>{a.title}</strong>
-                        {a.message && (
-                          <p>
-                            {a.message}
-                            {a.logo && <InlineLogo src={a.logo} alt={`${a.title} logo`} />}
-                          </p>
-                        )}
-                        {a.link && (
-                          <Link to={a.link} className="btn btn-outline updates-offer-cta" style={{ marginTop: '10px' }}>
-                            {a.linkLabel}
+          <div className="announce-carousel reveal reveal-delay-2">
+            <button
+              type="button"
+              className="announce-arrow announce-arrow--prev"
+              onClick={prevSlide}
+              disabled={slides.length <= 1}
+              aria-label="Previous announcement"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="15,18 9,12 15,6"/></svg>
+            </button>
+
+            <div
+              className="announce-track-wrap"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+            >
+              <div className="announce-track" style={{ transform: `translateX(-${activeSlide * 100}%)` }}>
+                {slides.map((a, i) => (
+                  <div className="announce-slide" key={i} aria-hidden={i !== activeSlide}>
+
+                    <div className="announce-slide-content">
+                      <div className="updates-list-item-top">
+                        {a.date && <span className="updates-list-date">{a.date}</span>}
+                        {i === 0 && <span className="updates-new-badge">New</span>}
+                      </div>
+                      <h3>{a.title}</h3>
+                      {a.message && (
+                        <p>
+                          {a.message}
+                          {a.logo && <InlineLogo src={a.logo} alt={`${a.title} logo`} />}
+                        </p>
+                      )}
+                      {a.link && (
+                        isExternalLink(a.link) ? (
+                          <a href={a.link} target="_blank" rel="noopener noreferrer" className="btn btn-outline updates-offer-cta">
+                            {a.linkLabel || 'Know More'}
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+                          </a>
+                        ) : (
+                          <Link to={a.link} className="btn btn-outline updates-offer-cta">
+                            {a.linkLabel || 'Know More'}
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
                           </Link>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </div>
-
-            {/* New Offers */}
-            <div className="updates-card updates-card--offer reveal reveal-delay-1">
-              <div className="updates-card-header">
-                <div className="updates-card-icon updates-card-icon--offer">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                    <path d="M20.59 13.41 11 3.83A2 2 0 0 0 9.59 3H4a1 1 0 0 0-1 1v5.59a2 2 0 0 0 .59 1.41l9.58 9.59a2 2 0 0 0 2.83 0l4.59-4.59a2 2 0 0 0 0-2.83z"/>
-                    <circle cx="7.5" cy="7.5" r="1.5"/>
-                  </svg>
-                </div>
-                <div>
-                  <span className="updates-card-label"><span className="updates-live-dot"></span>New Offers</span>
-                  <h3>Current Promotions</h3>
-                </div>
-              </div>
-              <div className="updates-card-divider"></div>
-              <div className="updates-card-body">
-                {featuredOffer ? (
-                  <div className="updates-offer">
-                    {featuredOffer.badge && <span className="updates-offer-badge reveal">{featuredOffer.badge}</span>}
-                    <div className="updates-offer-title-row reveal reveal-delay-1">
-                      <strong>{featuredOffer.title}</strong>
-                      <OfferLogo src={featuredOffer.logo} alt={`${featuredOffer.title} logo`} />
+                        )
+                      )}
                     </div>
-                    <p className="reveal reveal-delay-2">{featuredOffer.desc}</p>
-                    <div className="updates-offer-actions reveal reveal-delay-3">
-                      {isExternalLink(featuredOffer.link) ? (
-                        <a href={featuredOffer.link} target="_blank" rel="noopener noreferrer" className="btn btn-outline updates-offer-cta">
-                          {featuredOffer.linkLabel}
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
-                        </a>
+
+                    <div
+                      className="announce-slide-media"
+                      onClick={() => a.images?.[0] && setAnnouncementImage({ src: a.images[0], title: a.title })}
+                      role={a.images?.[0] ? 'button' : undefined}
+                      tabIndex={a.images?.[0] ? 0 : undefined}
+                      onKeyDown={e => a.images?.[0] && e.key === 'Enter' && setAnnouncementImage({ src: a.images[0], title: a.title })}
+                      aria-label={a.images?.[0] ? `View larger image for ${a.title}` : undefined}
+                    >
+                      {a.images?.[0] ? (
+                        <>
+                          <img src={a.images[0]} alt={a.title} />
+                          <span className="announce-slide-media-zoom">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                              <line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
+                            </svg>
+                          </span>
+                        </>
                       ) : (
-                        <Link to={featuredOffer.link} className="btn btn-outline updates-offer-cta">
-                          {featuredOffer.linkLabel}
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
-                        </Link>
-                      )}
-                      {(featuredOffer.detailsOverview?.length > 0 || featuredOffer.detailsRules?.length > 0) && (
-                        <button
-                          type="button"
-                          className="updates-offer-viewdetails"
-                          onClick={() => setOfferDetailsOpen(true)}
-                        >
-                          View Challenge Details
-                        </button>
+                        <div className="announce-slide-media-fallback">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+                            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                          </svg>
+                        </div>
                       )}
                     </div>
+
                   </div>
-                ) : (
-                  <div className="updates-placeholder">
-                    <p>No current offers. Check back soon for new promos.</p>
-                  </div>
-                )}
+                ))}
               </div>
             </div>
 
+            <button
+              type="button"
+              className="announce-arrow announce-arrow--next"
+              onClick={nextSlide}
+              disabled={slides.length <= 1}
+              aria-label="Next announcement"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="9,18 15,12 9,6"/></svg>
+            </button>
           </div>
+
+          {slides.length > 1 && (
+            <div className="announce-dots">
+              {slides.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  className={`announce-dot${i === activeSlide ? ' active' : ''}`}
+                  onClick={() => setCurrentSlide(i)}
+                  aria-label={`Go to announcement ${i + 1}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -661,7 +523,6 @@ export default function Home() {
         </div>
         <VideoLightbox open={lightboxOpen} onClose={() => setLightboxOpen(false)} />
         <ImageLightbox image={announcementImage} onClose={() => setAnnouncementImage(null)} />
-        <OfferDetailsModal offer={offerDetailsOpen ? featuredOffer : null} onClose={() => setOfferDetailsOpen(false)} />
       </section>
 
       {/* SERVICES */}

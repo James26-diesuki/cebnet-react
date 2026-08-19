@@ -8,6 +8,7 @@ import Home from './pages/Home'
 import Company from './pages/Company'
 import Services from './pages/Services'
 import Partners from './pages/Partners'
+import Offers from './pages/Offers'
 import Careers from './pages/Careers'
 import Contact from './pages/Contact'
 import OurTeam from './pages/OurTeam'
@@ -18,6 +19,7 @@ const PAGE_TITLES = {
   '/team':     'Our Team',
   '/services': 'Services',
   '/partners': 'Our Partners',
+  '/offers':   'Offers',
   '/careers':  'Careers',
   '/contact':  'Contact Us',
 }
@@ -58,6 +60,7 @@ export default function App() {
         <Route path="/company" element={<Company />} />
         <Route path="/services" element={<Services />} />
         <Route path="/partners" element={<Partners />} />
+        <Route path="/offers" element={<Offers />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/team" element={<OurTeam />} />
