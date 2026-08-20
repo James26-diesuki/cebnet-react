@@ -49,9 +49,6 @@ export default function Contact() {
                 <div>
                   <strong>Phone</strong>
                   <span>
-                    <span className="phone-carrier">{SITE.phone1Label}:</span>{' '}
-                    <a href={`tel:${SITE.phone1.replace(/\s+/g,'')}`}>{SITE.phone1}</a>
-                    <br/>
                     <span className="phone-carrier">{SITE.phone2Label}:</span>{' '}
                     <a href={`tel:${SITE.phone2.replace(/\s+/g,'')}`}>{SITE.phone2}</a>
                   </span>
