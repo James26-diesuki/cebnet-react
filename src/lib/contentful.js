@@ -205,6 +205,10 @@ export async function fetchOffers() {
         // one paragraph/rule per line.
         detailsOverview: parseLines(item.fields.detailsOverview),
         detailsRules:    parseLines(item.fields.detailsRules),
+        // Optional — an embeddable form URL (e.g. a Microsoft Forms or
+        // Google Forms link) shown on this offer's dedicated registration
+        // page, so registrants fill it out on-site instead of leaving.
+        registrationFormUrl: item.fields.registrationFormUrl || '',
         order:     item.fields.order       ?? 99,
       }))
       .sort((a, b) => a.order - b.order)

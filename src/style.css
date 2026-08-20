@@ -3994,3 +3994,127 @@ p  { color: var(--clr-muted); }
   letter-spacing: .08em;
   color: var(--clr-muted);
 }
+
+/* =========================================
+   MSP CHALLENGE — dedicated registration page
+   ========================================= */
+.challenge-section {
+  padding: calc(var(--header-h) + 60px) 0 100px;
+  background:
+    radial-gradient(ellipse 50% 80% at 85% 30%, rgba(232,37,26,.08), transparent 55%),
+    radial-gradient(ellipse 40% 60% at 15% 60%, rgba(56,132,255,.05), transparent 55%),
+    linear-gradient(160deg, #0d1220 0%, #0b0f18 50%, #080b12 100%);
+  min-height: 100vh;
+}
+.challenge-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.challenge-content .updates-offer-badge { margin-bottom: 18px; }
+.challenge-content .section-label { margin-bottom: 14px; }
+.challenge-content h1 {
+  font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+  margin-bottom: 18px;
+}
+.challenge-lead {
+  color: var(--clr-muted);
+  font-size: 1.02rem;
+  line-height: 1.75;
+  margin-bottom: 32px;
+  max-width: 480px;
+}
+.challenge-stat {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: var(--clr-surface);
+  border: 1px solid rgba(232,37,26,.25);
+  border-radius: var(--radius-lg);
+  padding: 20px 26px;
+  margin-bottom: 32px;
+  max-width: 440px;
+}
+.challenge-stat-amount {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--clr-accent);
+  line-height: 1;
+  white-space: nowrap;
+}
+.challenge-stat-label {
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--clr-muted);
+  line-height: 1.5;
+}
+.challenge-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0 0 32px;
+  padding: 0;
+  list-style: none;
+  max-width: 480px;
+}
+.challenge-highlights li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: .92rem;
+  line-height: 1.6;
+  color: var(--clr-muted);
+}
+.challenge-highlights li svg {
+  width: 16px; height: 16px;
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: var(--clr-accent3);
+}
+.challenge-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.challenge-link {
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--clr-white);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transition);
+}
+.challenge-link:hover { color: var(--clr-accent3); }
+
+.challenge-form-panel {
+  background: var(--clr-surface);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-card);
+}
+.challenge-form-header { margin-bottom: 18px; }
+.challenge-form-header h3 { color: var(--clr-white); font-size: 1.2rem; margin: 4px 0 0; }
+.challenge-form-frame {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  min-height: 850px;
+}
+.challenge-form-frame iframe {
+  width: 100%;
+  height: 850px;
+  min-height: 850px;
+  border: none;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .challenge-grid { grid-template-columns: 1fr; gap: 36px; }
+  .challenge-section { padding: calc(var(--header-h) + 36px) 0 70px; }
+  .challenge-form-frame,
+  .challenge-form-frame iframe { min-height: 700px; height: 700px; }
+}

@@ -9,6 +9,7 @@ import Company from './pages/Company'
 import Services from './pages/Services'
 import Partners from './pages/Partners'
 import Offers from './pages/Offers'
+import MspChallenge from './pages/MspChallenge'
 import Careers from './pages/Careers'
 import Contact from './pages/Contact'
 import OurTeam from './pages/OurTeam'
@@ -20,6 +21,7 @@ const PAGE_TITLES = {
   '/services': 'Services',
   '/partners': 'Our Partners',
   '/offers':   'Offers',
+  '/msp-challenge': 'MSP Email Security Challenge',
   '/careers':  'Careers',
   '/contact':  'Contact Us',
 }
@@ -61,6 +63,7 @@ export default function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/partners" element={<Partners />} />
         <Route path="/offers" element={<Offers />} />
+        <Route path="/msp-challenge" element={<MspChallenge />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/team" element={<OurTeam />} />

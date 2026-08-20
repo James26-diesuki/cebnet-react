@@ -12,6 +12,7 @@ const DEFAULT_OFFER = {
   logo: '',
   link: 'https://pages.checkpoint.com/emailsecurity-msp-10k-challenge.html',
   linkLabel: 'See Details',
+  registrationFormUrl: 'https://forms.cloud.microsoft/r/MLFHj9mR7A',
   detailsOverview: [
     'CebNet will set up a 14 day health check of your Microsoft Office 365 or Gmail environment using Check Point Email Security.',
     "If our patented approach to email security does not uncover more phishing and/or malware attacks than your existing security provider missed, then we'll send you the $10,000 USD.",
@@ -185,6 +186,12 @@ export default function Offers() {
                     </div>
                     <p>{offer.desc}</p>
                     <div className="updates-offer-actions">
+                      {offer.registrationFormUrl && (
+                        <Link to="/msp-challenge" className="btn btn-primary updates-offer-cta">
+                          Register Now
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+                        </Link>
+                      )}
                       {isExternalLink(offer.link) ? (
                         <a href={offer.link} target="_blank" rel="noopener noreferrer" className="btn btn-outline updates-offer-cta">
                           {offer.linkLabel}
