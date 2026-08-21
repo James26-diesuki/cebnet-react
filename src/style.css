@@ -1210,7 +1210,6 @@ p  { color: var(--clr-muted); }
   margin-top: 3px;
   color: var(--clr-accent3);
 }
-.offer-details-cta { margin-top: 8px; }
 @media (max-width: 640px) {
   .offer-details-body { padding: 28px 20px; }
 }

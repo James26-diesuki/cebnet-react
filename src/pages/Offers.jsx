@@ -35,13 +35,6 @@ const DEFAULT_OFFER = {
   ],
 }
 
-// ── True for absolute URLs (e.g. a partner's own site) — these need a plain
-// <a target="_blank"> rather than react-router's <Link>, which only knows
-// how to navigate to internal routes. ──
-function isExternalLink(url) {
-  return /^https?:\/\//i.test(url || '')
-}
-
 // ── Small logo badge with retry-on-error (same reasoning as PartnerLogo —
 // one failed CDN hit shouldn't permanently hide it) ──
 function OfferLogo({ src, alt }) {
@@ -123,18 +116,6 @@ function OfferDetailsModal({ offer, onClose }) {
               </ul>
             </div>
           )}
-
-          {offer.link && (
-            <a
-              href={offer.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-primary offer-details-cta"
-            >
-              {offer.linkLabel || 'See Details'}
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
-            </a>
-          )}
         </div>
       </div>
     </div>
@@ -189,17 +170,6 @@ export default function Offers() {
                       {offer.registrationFormUrl && (
                         <Link to="/msp-challenge" className="btn btn-primary updates-offer-cta">
                           Register Now
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
-                        </Link>
-                      )}
-                      {isExternalLink(offer.link) ? (
-                        <a href={offer.link} target="_blank" rel="noopener noreferrer" className="btn btn-outline updates-offer-cta">
-                          {offer.linkLabel}
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
-                        </a>
-                      ) : (
-                        <Link to={offer.link} className="btn btn-outline updates-offer-cta">
-                          {offer.linkLabel}
                           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
                         </Link>
                       )}
