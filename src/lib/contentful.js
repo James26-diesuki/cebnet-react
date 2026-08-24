@@ -211,13 +211,13 @@ export async function fetchOffers() {
         registrationFormUrl: item.fields.registrationFormUrl || '',
         // Optional — presence of "price" switches this offer to the
         // pricing-card layout (subscription plan) instead of the promo-card
-        // layout (time-limited challenge). "features" and "includes" are
-        // "Long text" fields, one item per line, same pattern as detailsRules.
-        price:       item.fields.price       || '',
-        priceSuffix: item.fields.priceSuffix || '',
-        planLabel:   item.fields.planLabel   || '',
-        features:    parseLines(item.fields.features),
-        includes:    parseLines(item.fields.includes),
+        // layout (time-limited challenge). On a pricing-card offer, "badge"
+        // doubles as the plan label (e.g. "12-Month Subscription — For 10
+        // Users") instead of a pill. "features" is a "Long text" field,
+        // one checklist item per line — covers both product features and
+        // what's included (license, setup, support, etc).
+        price:    item.fields.price || '',
+        features: parseLines(item.fields.features),
         order:     item.fields.order       ?? 99,
       }))
       .sort((a, b) => a.order - b.order)

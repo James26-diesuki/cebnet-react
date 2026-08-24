@@ -42,17 +42,18 @@ const DEFAULT_THREATSENTRA = {
   title: 'Threat Sentra',
   desc: 'Advanced Email Security for Businesses',
   logo: '',
-  planLabel: '12-Month Subscription — For 10 Users',
-  price: '₱4,880',
-  priceSuffix: '/month',
+  badge: '12-Month Subscription — For 10 Users',
+  price: '₱4,880/month',
   features: [
     'Known Malware Prevention',
     'Malicious URL Prevention',
     'Unauthorized Applications Detection',
     'Zero-Day Malware Protection',
     'Advanced Anti-Phishing Security',
+    'Includes License',
+    'Setup',
+    '24x7 Managed Support',
   ],
-  includes: ['Includes License', 'Setup', '24x7 Managed Support'],
 }
 
 // ── Small logo badge with retry-on-error (same reasoning as PartnerLogo —
@@ -116,17 +117,8 @@ function PricingOfferCard({ offer, i }) {
 
         {offer.price && (
           <div className="pricing-card-price-box">
-            {offer.planLabel && <div className="pricing-card-plan-label">{offer.planLabel}</div>}
-            <div className="pricing-card-price">
-              <span className="pricing-card-price-amount">{offer.price}</span>
-              {offer.priceSuffix && <span className="pricing-card-price-suffix">{offer.priceSuffix}</span>}
-            </div>
-          </div>
-        )}
-
-        {offer.includes?.length > 0 && (
-          <div className="pricing-card-includes">
-            {offer.includes.map((inc, ii) => <span key={ii} className="pricing-card-include-chip">{inc}</span>)}
+            {offer.badge && <div className="pricing-card-plan-label">{offer.badge}</div>}
+            <div className="pricing-card-price">{offer.price}</div>
           </div>
         )}
 
