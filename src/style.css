@@ -535,6 +535,7 @@ p  { color: var(--clr-muted); }
   justify-content: center;
   position: relative;
   overflow: hidden;
+  min-width: 0;
 }
 .announce-slide-content::before {
   content: '';
@@ -560,6 +561,7 @@ p  { color: var(--clr-muted); }
   border-radius: var(--radius-lg);
   overflow: hidden;
   min-height: 340px;
+  min-width: 0;
   position: relative;
   display: flex;
   align-items: center;
@@ -645,6 +647,7 @@ p  { color: var(--clr-muted); }
   box-shadow: var(--shadow-card);
   position: relative;
   overflow: hidden;
+  min-width: 0;
   transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
 }
 .updates-card:hover {
@@ -4011,6 +4014,7 @@ p  { color: var(--clr-muted); }
   gap: 56px;
   align-items: start;
 }
+.challenge-content { min-width: 0; }
 .challenge-content .updates-offer-badge { margin-bottom: 18px; }
 .challenge-content .section-label { margin-bottom: 14px; }
 .challenge-content h1 {
@@ -4094,6 +4098,7 @@ p  { color: var(--clr-muted); }
   border-radius: var(--radius-lg);
   padding: 28px;
   box-shadow: var(--shadow-card);
+  min-width: 0;
 }
 .challenge-form-header { margin-bottom: 18px; }
 .challenge-form-header h3 { color: var(--clr-white); font-size: 1.2rem; margin: 4px 0 0; }
@@ -4129,6 +4134,7 @@ p  { color: var(--clr-muted); }
   overflow: hidden;
   box-shadow: var(--shadow-card);
   position: relative;
+  min-width: 0;
   transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
 }
 .pricing-card:hover {
