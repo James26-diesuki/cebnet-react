@@ -4117,3 +4117,123 @@ p  { color: var(--clr-muted); }
   .challenge-form-frame,
   .challenge-form-frame iframe { min-height: 700px; height: 700px; }
 }
+
+/* =========================================
+   PRICING-STYLE OFFER CARD (subscription plans, e.g. ThreatSentra)
+   Deliberately distinct from .updates-card--offer's promo/challenge layout.
+   ========================================= */
+.pricing-card {
+  background: var(--clr-surface);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.pricing-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 56px rgba(0,0,0,.65);
+  border-color: rgba(232,37,26,.28);
+}
+.pricing-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--clr-accent), var(--clr-accent3));
+}
+.pricing-card-tagline {
+  color: var(--clr-muted);
+  font-size: .92rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.pricing-card-features {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+}
+.pricing-card-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: .86rem;
+  color: var(--clr-white);
+}
+.pricing-card-features li svg {
+  width: 15px; height: 15px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--clr-accent3);
+}
+.pricing-card-price-box {
+  background: rgba(232,37,26,.06);
+  border: 1px solid rgba(232,37,26,.2);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+}
+.pricing-card-plan-label {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--clr-muted);
+  margin-bottom: 8px;
+}
+.pricing-card-price {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.pricing-card-price-amount {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--clr-accent);
+  line-height: 1;
+}
+.pricing-card-price-suffix {
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--clr-muted);
+}
+.pricing-card-includes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.pricing-card-include-chip {
+  font-size: .72rem;
+  font-weight: 600;
+  color: var(--clr-muted);
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+.pricing-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.pricing-card-powered-by {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .72rem;
+  color: var(--clr-muted);
+}
+.pricing-card-cta { padding: 11px 22px; font-size: .82rem; }
+
+@media (max-width: 480px) {
+  .pricing-card-footer { flex-direction: column; align-items: stretch; }
+  .pricing-card-cta { justify-content: center; }
+}

@@ -209,6 +209,15 @@ export async function fetchOffers() {
         // Google Forms link) shown on this offer's dedicated registration
         // page, so registrants fill it out on-site instead of leaving.
         registrationFormUrl: item.fields.registrationFormUrl || '',
+        // Optional — presence of "price" switches this offer to the
+        // pricing-card layout (subscription plan) instead of the promo-card
+        // layout (time-limited challenge). "features" and "includes" are
+        // "Long text" fields, one item per line, same pattern as detailsRules.
+        price:       item.fields.price       || '',
+        priceSuffix: item.fields.priceSuffix || '',
+        planLabel:   item.fields.planLabel   || '',
+        features:    parseLines(item.fields.features),
+        includes:    parseLines(item.fields.includes),
         order:     item.fields.order       ?? 99,
       }))
       .sort((a, b) => a.order - b.order)

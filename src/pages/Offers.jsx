@@ -35,6 +35,26 @@ const DEFAULT_OFFER = {
   ],
 }
 
+// A second, differently-shaped offer — a subscription plan rather than a
+// time-limited challenge — so the page never looks empty and the
+// pricing-card variant always has something to render.
+const DEFAULT_THREATSENTRA = {
+  title: 'Threat Sentra',
+  desc: 'Advanced Email Security for Businesses',
+  logo: '',
+  planLabel: '12-Month Subscription — For 10 Users',
+  price: '₱4,880',
+  priceSuffix: '/month',
+  features: [
+    'Known Malware Prevention',
+    'Malicious URL Prevention',
+    'Unauthorized Applications Detection',
+    'Zero-Day Malware Protection',
+    'Advanced Anti-Phishing Security',
+  ],
+  includes: ['Includes License', 'Setup', '24x7 Managed Support'],
+}
+
 // ── Small logo badge with retry-on-error (same reasoning as PartnerLogo —
 // one failed CDN hit shouldn't permanently hide it) ──
 function OfferLogo({ src, alt }) {
@@ -56,6 +76,73 @@ function OfferLogo({ src, alt }) {
   return (
     <div className="updates-offer-logo-wrap">
       <img key={attempt} src={src} alt={alt} className="updates-offer-logo" onError={handleError} />
+    </div>
+  )
+}
+
+// ── Pricing-style offer card — for subscription products (a fixed price,
+// a feature checklist) rather than a time-limited promo. Deliberately a
+// different shape from the promo card below so two offers on the same
+// page don't read as duplicates of each other. ──
+function PricingOfferCard({ offer, i }) {
+  return (
+    <div className={`pricing-card reveal reveal-delay-${(i % 3) + 1}`}>
+      <div className="updates-card-header">
+        <div className="updates-card-icon updates-card-icon--offer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <path d="M12 2 3 6v6c0 5.25 3.6 9.74 9 11 5.4-1.26 9-5.75 9-11V6z"/>
+            <path d="M8 12l2.5 2.5L16 9"/>
+          </svg>
+        </div>
+        <div>
+          <span className="updates-card-label"><span className="updates-live-dot"></span>Subscription Plan</span>
+          <h3>{offer.title}</h3>
+        </div>
+      </div>
+      <div className="updates-card-divider"></div>
+      <div className="updates-card-body">
+        {offer.desc && <p className="pricing-card-tagline">{offer.desc}</p>}
+
+        {offer.features?.length > 0 && (
+          <ul className="pricing-card-features">
+            {offer.features.map((f, fi) => (
+              <li key={fi}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20,6 9,17 4,12"/></svg>
+                {f}
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {offer.price && (
+          <div className="pricing-card-price-box">
+            {offer.planLabel && <div className="pricing-card-plan-label">{offer.planLabel}</div>}
+            <div className="pricing-card-price">
+              <span className="pricing-card-price-amount">{offer.price}</span>
+              {offer.priceSuffix && <span className="pricing-card-price-suffix">{offer.priceSuffix}</span>}
+            </div>
+          </div>
+        )}
+
+        {offer.includes?.length > 0 && (
+          <div className="pricing-card-includes">
+            {offer.includes.map((inc, ii) => <span key={ii} className="pricing-card-include-chip">{inc}</span>)}
+          </div>
+        )}
+
+        <div className="pricing-card-footer">
+          {offer.logo && (
+            <div className="pricing-card-powered-by">
+              <span>Powered by</span>
+              <OfferLogo src={offer.logo} alt={`${offer.title} logo`} />
+            </div>
+          )}
+          <Link to="/contact" className="btn btn-primary pricing-card-cta">
+            Get Started
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+          </Link>
+        </div>
+      </div>
     </div>
   )
 }
@@ -122,12 +209,61 @@ function OfferDetailsModal({ offer, onClose }) {
   )
 }
 
+// ── Promo-style offer card — for time-limited challenges/promotions with
+// a badge, short pitch, and optional registration + rules modal. ──
+function PromoOfferCard({ offer, i, onViewDetails }) {
+  return (
+    <div className={`updates-card updates-card--offer reveal reveal-delay-${(i % 3) + 1}`}>
+      <div className="updates-card-header">
+        <div className="updates-card-icon updates-card-icon--offer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <path d="M20.59 13.41 11 3.83A2 2 0 0 0 9.59 3H4a1 1 0 0 0-1 1v5.59a2 2 0 0 0 .59 1.41l9.58 9.59a2 2 0 0 0 2.83 0l4.59-4.59a2 2 0 0 0 0-2.83z"/>
+            <circle cx="7.5" cy="7.5" r="1.5"/>
+          </svg>
+        </div>
+        <div>
+          <span className="updates-card-label"><span className="updates-live-dot"></span>Offer</span>
+          <h3>Current Promotion</h3>
+        </div>
+      </div>
+      <div className="updates-card-divider"></div>
+      <div className="updates-card-body">
+        <div className="updates-offer">
+          {offer.badge && <span className="updates-offer-badge">{offer.badge}</span>}
+          <div className="updates-offer-title-row">
+            <strong>{offer.title}</strong>
+            <OfferLogo src={offer.logo} alt={`${offer.title} logo`} />
+          </div>
+          <p>{offer.desc}</p>
+          <div className="updates-offer-actions">
+            {offer.registrationFormUrl && (
+              <Link to="/msp-challenge" className="btn btn-primary updates-offer-cta">
+                Register Now
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+              </Link>
+            )}
+            {(offer.detailsOverview?.length > 0 || offer.detailsRules?.length > 0) && (
+              <button
+                type="button"
+                className="updates-offer-viewdetails"
+                onClick={() => onViewDetails(offer)}
+              >
+                View Full Details
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function Offers() {
   useScrollReveal()
   const { data: OFFERS } = useOffers()
   const [detailsOffer, setDetailsOffer] = useState(null)
 
-  const list = OFFERS.length > 0 ? OFFERS : [DEFAULT_OFFER]
+  const list = OFFERS.length > 0 ? OFFERS : [DEFAULT_OFFER, DEFAULT_THREATSENTRA]
 
   return (
     <>
@@ -144,48 +280,9 @@ export default function Offers() {
         <div className="container">
           <div className="updates-grid">
             {list.map((offer, i) => (
-              <div key={i} className={`updates-card updates-card--offer reveal reveal-delay-${(i % 3) + 1}`}>
-                <div className="updates-card-header">
-                  <div className="updates-card-icon updates-card-icon--offer">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                      <path d="M20.59 13.41 11 3.83A2 2 0 0 0 9.59 3H4a1 1 0 0 0-1 1v5.59a2 2 0 0 0 .59 1.41l9.58 9.59a2 2 0 0 0 2.83 0l4.59-4.59a2 2 0 0 0 0-2.83z"/>
-                      <circle cx="7.5" cy="7.5" r="1.5"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <span className="updates-card-label"><span className="updates-live-dot"></span>Offer</span>
-                    <h3>Current Promotion</h3>
-                  </div>
-                </div>
-                <div className="updates-card-divider"></div>
-                <div className="updates-card-body">
-                  <div className="updates-offer">
-                    {offer.badge && <span className="updates-offer-badge">{offer.badge}</span>}
-                    <div className="updates-offer-title-row">
-                      <strong>{offer.title}</strong>
-                      <OfferLogo src={offer.logo} alt={`${offer.title} logo`} />
-                    </div>
-                    <p>{offer.desc}</p>
-                    <div className="updates-offer-actions">
-                      {offer.registrationFormUrl && (
-                        <Link to="/msp-challenge" className="btn btn-primary updates-offer-cta">
-                          Register Now
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
-                        </Link>
-                      )}
-                      {(offer.detailsOverview?.length > 0 || offer.detailsRules?.length > 0) && (
-                        <button
-                          type="button"
-                          className="updates-offer-viewdetails"
-                          onClick={() => setDetailsOffer(offer)}
-                        >
-                          View Full Details
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
+              offer.price
+                ? <PricingOfferCard key={i} offer={offer} i={i} />
+                : <PromoOfferCard key={i} offer={offer} i={i} onViewDetails={setDetailsOffer} />
             ))}
           </div>
         </div>
