@@ -4136,6 +4136,7 @@ p  { color: var(--clr-muted); }
   background: var(--clr-surface);
   border: 1px solid rgba(255,255,255,.08);
   border-radius: var(--radius-lg);
+  padding: 32px;
   overflow: hidden;
   box-shadow: var(--shadow-card);
   position: relative;
