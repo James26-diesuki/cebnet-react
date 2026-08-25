@@ -4213,15 +4213,15 @@ p  { color: var(--clr-muted); }
   pointer-events: none;
 }
 .pricing-card-price-icon {
-  width: 42px; height: 42px;
-  margin: 0 auto 12px;
+  width: 52px; height: 52px;
+  margin: 0 auto 14px;
   border-radius: 50%;
   background: rgba(255,255,255,.12);
   display: flex; align-items: center; justify-content: center;
   color: #fff;
   position: relative;
 }
-.pricing-card-price-icon svg { width: 20px; height: 20px; }
+.pricing-card-price-icon svg { width: 26px; height: 26px; }
 .pricing-card-plan-label {
   position: relative;
   font-size: .72rem;
