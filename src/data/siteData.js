@@ -27,6 +27,7 @@ export const STATS = {
 
 export const NAV_LINKS = [
   { label: 'Home',        to: '/' },
+  { label: 'Offers',      to: '/offers'   },
   {
     label: 'Our Company',
     to: '/company',
@@ -37,7 +38,6 @@ export const NAV_LINKS = [
   },
   { label: 'Services',    to: '/services' },
   { label: 'Partners',    to: '/partners' },
-  { label: 'Offers',      to: '/offers'   },
   { label: 'Careers',     to: '/careers' },
   { label: 'Contact Us',  to: '/contact' },
 ]

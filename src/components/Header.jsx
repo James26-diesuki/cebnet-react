@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { NAV_LINKS } from '../data/siteData'
+import { NAV_LINKS, SITE as SITE_FALLBACK } from '../data/siteData'
+import { useSiteInfo } from '../hooks/useContentful'
 
 export default function Header() {
   const [scrolled,     setScrolled]     = useState(false)
   const [menuOpen,     setMenuOpen]     = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(null)
   const location = useLocation()
+  const { data: rawSite } = useSiteInfo()
+  const SITE = { ...SITE_FALLBACK, ...rawSite }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -94,6 +97,9 @@ export default function Header() {
                       onClick={closeNav}
                     >
                       {link.label}
+                      {link.to === '/offers' && SITE.offersNavBadge && (
+                        <span className="nav-badge">{SITE.offersNavBadge}</span>
+                      )}
                     </NavLink>
                   )}
                 </li>

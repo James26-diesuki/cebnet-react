@@ -75,6 +75,9 @@ export async function fetchSiteInfo() {
       phone2Label:   f.phone2Label   || '',
       address:       f.address       || '',
       businessHours: f.businessHours || '',
+      // Optional — short text shown as a small pill next to "Offers" in the
+      // nav (e.g. "New"). Leave blank in Contentful to hide it.
+      offersNavBadge: f.offersNavBadge || '',
     }
   } catch (e) {
     console.error('fetchSiteInfo error:', e)
