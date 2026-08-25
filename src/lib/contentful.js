@@ -17,9 +17,17 @@ async function fetchEntries(contentType, params = '') {
 
 // ── Resolve asset URL from includes ──
 function resolveAsset(assetId, includes, opts = {}) {
-  if (!includes?.Asset) return null
+  // Field simply has nothing selected — nothing to warn about.
+  if (!assetId) return null
+  if (!includes?.Asset) {
+    console.warn(`resolveAsset: entry links an asset (${assetId}) but the response included no assets at all — check the "include" depth on the query.`)
+    return null
+  }
   const asset = includes.Asset.find(a => a.sys.id === assetId)
-  if (!asset) return null
+  if (!asset) {
+    console.warn(`resolveAsset: linked asset ${assetId} was not returned by the Delivery API — it's almost always because the asset itself isn't published yet (publishing the entry alone isn't enough).`)
+    return null
+  }
   let url = 'https:' + asset.fields.file.url
   // Ask Contentful's Images API for a right-sized, compressed version instead of
   // whatever the raw uploaded file happens to be — large unoptimized uploads (a
@@ -180,11 +188,15 @@ export async function fetchAnnouncements() {
 // detailsOverview/detailsRules so editors can paste a whole block at once
 // instead of adding list items one by one. Strips a leading "-", "*", or
 // "•" in case the pasted text still has bullet markers on it. ──
-function parseLines(text) {
-  if (!text) return []
-  return text
-    .split('\n')
-    .map(line => line.replace(/^[-*•]\s*/, '').trim())
+// Accepts either a "Long text" field (one string, split on newlines) or a
+// list-type field like "levels" on Partners (already an array) — so this
+// keeps working no matter which field type an editor used in Contentful,
+// instead of throwing when it gets an array and tries to .split() it.
+function parseLines(value) {
+  if (!value) return []
+  const rawLines = Array.isArray(value) ? value : String(value).split('\n')
+  return rawLines
+    .map(line => String(line).replace(/^[-*•]\s*/, '').trim())
     .filter(Boolean)
 }
 
