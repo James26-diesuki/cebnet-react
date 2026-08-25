@@ -218,6 +218,16 @@ export async function fetchOffers() {
         // what's included (license, setup, support, etc).
         price:    item.fields.price || '',
         features: parseLines(item.fields.features),
+        // Optional — a second checklist rendered as its own highlighted
+        // banner on the pricing-card layout (e.g. "Includes License",
+        // "Setup", "24x7 Managed Support"), kept separate from "features"
+        // so editors control the split explicitly instead of us guessing
+        // it from the wording. Also "Long text", one item per line.
+        includedExtras: parseLines(item.fields.includedExtras),
+        // Optional — a one-line callout shown under the includedExtras
+        // banner on the pricing-card layout (e.g. "Protect your business
+        // from phishing, malware, ransomware, and emerging email threats.").
+        protectionNote: item.fields.protectionNote || '',
         order:     item.fields.order       ?? 99,
       }))
       .sort((a, b) => a.order - b.order)

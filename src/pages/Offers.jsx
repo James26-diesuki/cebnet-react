@@ -50,10 +50,9 @@ const DEFAULT_THREATSENTRA = {
     'Unauthorized Applications Detection',
     'Zero-Day Malware Protection',
     'Advanced Anti-Phishing Security',
-    'Includes License',
-    'Setup',
-    '24x7 Managed Support',
   ],
+  includedExtras: ['Includes License', 'Setup', '24x7 Managed Support'],
+  protectionNote: 'Protect your business from phishing, malware, ransomware, and emerging email threats.',
 }
 
 // ── Small logo badge with retry-on-error (same reasoning as PartnerLogo —
@@ -78,6 +77,97 @@ function OfferLogo({ src, alt }) {
     <div className="updates-offer-logo-wrap">
       <img key={attempt} src={src} alt={alt} className="updates-offer-logo" onError={handleError} />
     </div>
+  )
+}
+
+// ── Per-feature icons for the pricing card's checklist — matched by
+// keyword so Contentful editors can keep using a plain one-line-per-item
+// text field without needing a separate icon picker per line. Falls back
+// to a generic checkmark for anything that doesn't match a known keyword. ──
+function FeatureIcon({ text }) {
+  const t = text.toLowerCase()
+  if (t.includes('zero-day') || t.includes('zero day')) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M12 2 3 6v6c0 5.25 3.6 9.74 9 11 5.4-1.26 9-5.75 9-11V6z"/>
+        <path d="M9 12a3 3 0 0 1 5-2.2M15 12a3 3 0 0 1-5 2.2"/>
+      </svg>
+    )
+  }
+  if (t.includes('malware')) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <rect x="8" y="7" width="8" height="11" rx="4"/>
+        <path d="M12 7V4M9 4h6M5 11H3M5 15H3M21 11h-2M21 15h-2M7 9 5 7M17 9l2-2M7 17l-2 2M17 17l2 2"/>
+      </svg>
+    )
+  }
+  if (t.includes('url')) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <circle cx="11" cy="11" r="7"/>
+        <path d="M4 11h14M11 4a15 15 0 0 1 0 14M11 4a15 15 0 0 0 0 14"/>
+      </svg>
+    )
+  }
+  if (t.includes('application')) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <rect x="3" y="4" width="13" height="10" rx="2"/>
+        <path d="M3 7.5h13"/>
+        <rect x="13" y="14" width="8" height="7" rx="1.5"/>
+        <path d="M15 14v-2a2 2 0 1 1 4 0v2"/>
+      </svg>
+    )
+  }
+  if (t.includes('phishing')) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <rect x="3" y="5" width="14" height="10" rx="1.5"/>
+        <path d="M3 6.5l7 5 7-5"/>
+        <path d="M20 13.5l2 .8v1.3c0 1.6-1 2.6-2 3.2-1-.6-2-1.6-2-3.2v-1.3z"/>
+      </svg>
+    )
+  }
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+      <polyline points="20,6 9,17 4,12"/>
+    </svg>
+  )
+}
+
+// ── Icons for the "what's included" banner — same keyword-match approach
+// as FeatureIcon above. ──
+function IncludedIcon({ text }) {
+  const t = text.toLowerCase()
+  if (t.includes('license')) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <circle cx="12" cy="8" r="5"/>
+        <path d="M8.5 12.5 6 21l6-3.5 6 3.5-2.5-8.5"/>
+      </svg>
+    )
+  }
+  if (t.includes('setup')) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
+    )
+  }
+  if (t.includes('support')) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+        <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+      </svg>
+    )
+  }
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+      <polyline points="20,6 9,17 4,12"/>
+    </svg>
   )
 }
 
@@ -109,7 +199,7 @@ function PricingOfferCard({ offer, i }) {
             {offer.features.map((f, fi) => (
               <li key={fi}>
                 <span className="pricing-feature-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20,6 9,17 4,12"/></svg>
+                  <FeatureIcon text={f} />
                 </span>
                 {f}
               </li>
@@ -128,6 +218,30 @@ function PricingOfferCard({ offer, i }) {
             </div>
             {offer.badge && <div className="pricing-card-plan-label">{offer.badge}</div>}
             <div className="pricing-card-price">{offer.price}</div>
+          </div>
+        )}
+
+        {offer.includedExtras?.length > 0 && (
+          <div className="pricing-card-included">
+            <div className="pricing-card-included-row">
+              {offer.includedExtras.map((extra, ei) => (
+                <div className="pricing-card-included-item" key={ei}>
+                  <span className="pricing-card-included-icon">
+                    <IncludedIcon text={extra} />
+                  </span>
+                  <span>{extra}</span>
+                </div>
+              ))}
+            </div>
+            {offer.protectionNote && (
+              <div className="pricing-card-protection-note">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <polyline points="9,12 11,14 15,10"/>
+                </svg>
+                <span>{offer.protectionNote}</span>
+              </div>
+            )}
           </div>
         )}
 
