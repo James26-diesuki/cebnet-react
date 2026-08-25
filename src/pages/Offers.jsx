@@ -108,7 +108,9 @@ function PricingOfferCard({ offer, i }) {
           <ul className="pricing-card-features">
             {offer.features.map((f, fi) => (
               <li key={fi}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20,6 9,17 4,12"/></svg>
+                <span className="pricing-feature-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20,6 9,17 4,12"/></svg>
+                </span>
                 {f}
               </li>
             ))}
@@ -117,6 +119,13 @@ function PricingOfferCard({ offer, i }) {
 
         {offer.price && (
           <div className="pricing-card-price-box">
+            <div className="pricing-card-price-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <path d="M12 2 3 6v6c0 5.25 3.6 9.74 9 11 5.4-1.26 9-5.75 9-11V6z"/>
+                <rect x="7.5" y="9.5" width="9" height="6.5" rx="1"/>
+                <path d="M7.5 10.3l4.5 3 4.5-3"/>
+              </svg>
+            </div>
             {offer.badge && <div className="pricing-card-plan-label">{offer.badge}</div>}
             <div className="pricing-card-price">{offer.price}</div>
           </div>

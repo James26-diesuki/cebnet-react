@@ -26,6 +26,11 @@
   --clr-blue-soft: rgba(56,132,255,.08);
   --clr-blue-line: rgba(56,132,255,.15);
 
+  /* Partner-brand navy blue — used on pricing/subscription offer cards
+     (e.g. Threat Sentra) to match the partner's own collateral */
+  --clr-pricing-blue-dark: #10225c;
+  --clr-pricing-blue:      #1d3f9e;
+
   /* Text */
   --clr-text:      #e8eaf0;
   --clr-muted:     #7a8099;
@@ -4165,42 +4170,72 @@ p  { color: var(--clr-muted); }
 }
 .pricing-card-features li {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 8px;
   font-size: .84rem;
   color: var(--clr-white);
   line-height: 1.4;
   min-width: 0;
 }
-.pricing-card-features li svg {
-  width: 14px; height: 14px;
+.pricing-card-features li .pricing-feature-icon {
+  width: 24px; height: 24px;
   flex-shrink: 0;
-  margin-top: 3px;
-  color: var(--clr-accent3);
+  border-radius: 50%;
+  background: var(--clr-pricing-blue-dark, #10225c);
+  display: flex; align-items: center; justify-content: center;
+}
+.pricing-card-features li .pricing-feature-icon svg {
+  width: 12px; height: 12px;
+  color: #fff;
 }
 @media (max-width: 420px) {
   .pricing-card-features { grid-template-columns: 1fr; }
 }
+/* Navy-blue price panel — matches the partner's (Check Point) brand blue,
+   set apart from the card's red accent so the plan/price reads as its own
+   "product" block, the way it does on the partner's own collateral. */
 .pricing-card-price-box {
-  background: rgba(232,37,26,.06);
-  border: 1px solid rgba(232,37,26,.2);
+  background: linear-gradient(150deg, var(--clr-pricing-blue-dark) 0%, var(--clr-pricing-blue) 100%);
+  border: 1px solid rgba(255,255,255,.1);
   border-radius: 12px;
-  padding: 18px 20px;
+  padding: 22px 20px;
   margin-bottom: 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
+.pricing-card-price-box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 25% 15%, rgba(255,255,255,.1), transparent 55%);
+  pointer-events: none;
+}
+.pricing-card-price-icon {
+  width: 42px; height: 42px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.12);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  position: relative;
+}
+.pricing-card-price-icon svg { width: 20px; height: 20px; }
 .pricing-card-plan-label {
+  position: relative;
   font-size: .72rem;
   font-weight: 700;
   letter-spacing: .04em;
   text-transform: uppercase;
-  color: var(--clr-muted);
+  color: rgba(255,255,255,.8);
   margin-bottom: 8px;
 }
 .pricing-card-price {
+  position: relative;
   font-family: var(--font-display);
   font-size: 1.7rem;
   font-weight: 800;
-  color: var(--clr-accent);
+  color: #fff;
   line-height: 1.25;
 }
 .pricing-card-footer {
@@ -4216,6 +4251,10 @@ p  { color: var(--clr-muted); }
   gap: 8px;
   font-size: .72rem;
   color: var(--clr-muted);
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.08);
+  padding: 6px 14px;
+  border-radius: 30px;
 }
 .pricing-card-cta { padding: 11px 22px; font-size: .82rem; }
 
